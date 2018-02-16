@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AccountVC: UIViewController, UITextFieldDelegate {
 
@@ -17,6 +18,31 @@ class AccountVC: UIViewController, UITextFieldDelegate {
     // MARK: - Actions
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        
+        let entityName: String
+        
+        switch typeSelector.selectedSegmentIndex {
+        case 0:
+            entityName = "IncomeAccount"
+        case 1:
+            entityName = "ActiveAccount"
+        case 2:
+            entityName = "ExpenseAccount"
+        default:
+            entityName = "Account"
+        }
+
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+
+        let account: Account = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Account
+        
+        account.name = nameTextField.text
+        
+        appDelegate.saveContext()
+        
+        navigationController?.popViewController(animated: true)
+        
     }
     
     

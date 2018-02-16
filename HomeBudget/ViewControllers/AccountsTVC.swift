@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 
-class AccountsTVC: UITableViewController {
+class AccountsTVC: UITableViewController, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var accountsTypeSelector: UISegmentedControl!
     
@@ -61,11 +61,15 @@ class AccountsTVC: UITableViewController {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
         frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        frc.delegate = self
+
         do {
             try frc.performFetch()
         } catch {
             fatalError("Failed to fetch entities: \(error)")
         }
+        
+        tableView.reloadData()
 
     }
     
@@ -100,7 +104,7 @@ class AccountsTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
         
         guard let account = frc?.object(at: indexPath) else {
             fatalError("Attempt to configure cell without a managed object")
@@ -157,5 +161,56 @@ class AccountsTVC: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - NSFetchedResultsControllerDelegate
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
+        let indexSet = IndexSet.init(integer: sectionIndex)
+        
+        switch type {
+
+        case .insert:
+            tableView.insertSections(indexSet, with: .fade)
+        case .delete:
+            tableView.deleteSections(indexSet, with: .fade)
+            
+        case .move:
+            return
+        case .update:
+            return
+            
+        }
+        
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+            
+        case .insert:
+            if let newIndexPath = newIndexPath { tableView.insertRows(at: [newIndexPath], with: .fade) }
+        case .delete:
+            if let indexPath = indexPath { tableView.deleteRows(at: [indexPath], with: .fade)}
+        case .move:
+            if let indexPath = indexPath, let newIndexPath = newIndexPath {
+                
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.insertRows(at: [newIndexPath], with: .fade)
+                
+            }
+        case .update:
+            if let indexPath = indexPath { tableView.reloadRows(at: [indexPath], with: .fade) }
+        }
+        
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
 
 }
