@@ -168,11 +168,11 @@
             </objects>
             <point key="canvasLocation" x="1807.5" y="130.98591549295776"/>
         </scene>
-        <!--Item-->
+        <!--Accounts-->
         <scene sceneID="gqm-Ci-BjL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sPB-qa-3iO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Lqe-ok-T3j"/>
+                    <tabBarItem key="tabBarItem" title="Accounts" image="icons8-merchant-account" id="Lqe-ok-T3j"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0En-Sr-2kU">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -205,4 +205,7 @@
             <point key="canvasLocation" x="-786" y="133"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-merchant-account" width="25" height="25"/>
+    </resources>
 </document>
