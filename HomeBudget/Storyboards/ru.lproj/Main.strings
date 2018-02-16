@@ -1,0 +1,12 @@
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "Lqe-ok-T3j"; */
+"Lqe-ok-T3j.title" = "Item";
+
+/* Class = "UISegmentedControl"; vdG-YA-qQ4.segmentTitles[0] = "Income"; ObjectID = "vdG-YA-qQ4"; */
+"vdG-YA-qQ4.segmentTitles[0]" = "Приход";
+
+/* Class = "UISegmentedControl"; vdG-YA-qQ4.segmentTitles[1] = "Active"; ObjectID = "vdG-YA-qQ4"; */
+"vdG-YA-qQ4.segmentTitles[1]" = "Текущие";
+
+/* Class = "UISegmentedControl"; vdG-YA-qQ4.segmentTitles[2] = "Expense"; ObjectID = "vdG-YA-qQ4"; */
+"vdG-YA-qQ4.segmentTitles[2]" = "Расход";
