@@ -26,6 +26,7 @@
 		2C54B0E92036D7E900BDD12E /* IncomeAccount+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B0DF2036D7E900BDD12E /* IncomeAccount+CoreDataProperties.swift */; };
 		2C54B0F22036DD0700BDD12E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C54B0F02036DD0700BDD12E /* Localizable.strings */; };
 		2C54B0F92036DFAE00BDD12E /* AccountsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B0F82036DFAE00BDD12E /* AccountsTVC.swift */; };
+		2C54B0FD2036EBFA00BDD12E /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B0FC2036EBFA00BDD12E /* AccountVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		2C54B0F32036DD1000BDD12E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2C54B0F82036DFAE00BDD12E /* AccountsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTVC.swift; sourceTree = "<group>"; };
 		2C54B0FB2036E03E00BDD12E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		2C54B0FC2036EBFA00BDD12E /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				2C54B0F82036DFAE00BDD12E /* AccountsTVC.swift */,
+				2C54B0FC2036EBFA00BDD12E /* AccountVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				2C54B0E72036D7E900BDD12E /* Transaction+CoreDataProperties.swift in Sources */,
 				2C54B0E62036D7E900BDD12E /* Transaction+CoreDataClass.swift in Sources */,
 				2C54B0E52036D7E900BDD12E /* Account+CoreDataProperties.swift in Sources */,
+				2C54B0FD2036EBFA00BDD12E /* AccountVC.swift in Sources */,
 				2C54B0E02036D7E900BDD12E /* ActiveAccount+CoreDataClass.swift in Sources */,
 				2C54B0F92036DFAE00BDD12E /* AccountsTVC.swift in Sources */,
 				2C54B0E42036D7E900BDD12E /* Account+CoreDataClass.swift in Sources */,
