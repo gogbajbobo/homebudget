@@ -24,8 +24,8 @@
 		2C54B0E72036D7E900BDD12E /* Transaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B0DD2036D7E900BDD12E /* Transaction+CoreDataProperties.swift */; };
 		2C54B0E82036D7E900BDD12E /* IncomeAccount+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B0DE2036D7E900BDD12E /* IncomeAccount+CoreDataClass.swift */; };
 		2C54B0E92036D7E900BDD12E /* IncomeAccount+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B0DF2036D7E900BDD12E /* IncomeAccount+CoreDataProperties.swift */; };
-		2C54B0EB2036D8E200BDD12E /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B0EA2036D8E200BDD12E /* AccountsViewController.swift */; };
 		2C54B0F22036DD0700BDD12E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C54B0F02036DD0700BDD12E /* Localizable.strings */; };
+		2C54B0F92036DFAE00BDD12E /* AccountsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B0F82036DFAE00BDD12E /* AccountsTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,11 +69,11 @@
 		2C54B0DD2036D7E900BDD12E /* Transaction+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transaction+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2C54B0DE2036D7E900BDD12E /* IncomeAccount+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IncomeAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2C54B0DF2036D7E900BDD12E /* IncomeAccount+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IncomeAccount+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		2C54B0EA2036D8E200BDD12E /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
-		2C54B0EE2036DBC600BDD12E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		2C54B0EF2036DBC700BDD12E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2C54B0F12036DD0700BDD12E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2C54B0F32036DD1000BDD12E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2C54B0F82036DFAE00BDD12E /* AccountsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTVC.swift; sourceTree = "<group>"; };
+		2C54B0FB2036E03E00BDD12E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,7 +174,7 @@
 		2C54B0EC2036D8EB00BDD12E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				2C54B0EA2036D8E200BDD12E /* AccountsViewController.swift */,
+				2C54B0F82036DFAE00BDD12E /* AccountsTVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -335,7 +335,7 @@
 				2C54B0E62036D7E900BDD12E /* Transaction+CoreDataClass.swift in Sources */,
 				2C54B0E52036D7E900BDD12E /* Account+CoreDataProperties.swift in Sources */,
 				2C54B0E02036D7E900BDD12E /* ActiveAccount+CoreDataClass.swift in Sources */,
-				2C54B0EB2036D8E200BDD12E /* AccountsViewController.swift in Sources */,
+				2C54B0F92036DFAE00BDD12E /* AccountsTVC.swift in Sources */,
 				2C54B0E42036D7E900BDD12E /* Account+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,7 +376,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2C54B0952036D3E200BDD12E /* Base */,
-				2C54B0EE2036DBC600BDD12E /* ru */,
+				2C54B0FB2036E03E00BDD12E /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

@@ -6,36 +6,54 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Accounts View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--AccountsTVC-->
+        <scene sceneID="Qr0-72-fTa">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="AccountsViewController" customModule="HomeBudget" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <tableViewController id="nrK-Fy-gUg" customClass="AccountsTVC" customModule="HomeBudget" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="GUt-RB-K6w">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="zBL-er-nns">
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="fT8-ui-XmP">
+                                <rect key="frame" x="0.0" y="55.5" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fT8-ui-XmP" id="IXO-EU-pIm">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="nrK-Fy-gUg" id="cm2-OL-woo"/>
+                            <outlet property="delegate" destination="nrK-Fy-gUg" id="F4t-6l-sDG"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="BMO-aa-APq">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="vdG-YA-qQ4">
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="ZCQ-SP-zay">
                             <rect key="frame" x="60" y="7" width="200" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <segments>
                                 <segment title="Income"/>
                                 <segment title="Active"/>
                                 <segment title="Expense"/>
                             </segments>
+                            <connections>
+                                <action selector="accountsTypeSelected:" destination="nrK-Fy-gUg" eventType="valueChanged" id="xMG-uc-4yN"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                    <connections>
+                        <outlet property="accountsTypeSelector" destination="ZCQ-SP-zay" id="Mai-aX-wUL"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o0n-ZM-25D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="875.625" y="133.09859154929578"/>
+            <point key="canvasLocation" x="923" y="132"/>
         </scene>
         <!--Item-->
         <scene sceneID="gqm-Ci-BjL">
@@ -49,7 +67,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="RMS-gW-qxB"/>
+                        <segue destination="nrK-Fy-gUg" kind="relationship" relationship="rootViewController" id="Xh2-2c-cNc"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AtK-qM-HT7" userLabel="First Responder" sceneMemberID="firstResponder"/>

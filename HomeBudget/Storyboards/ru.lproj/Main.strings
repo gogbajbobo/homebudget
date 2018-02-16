@@ -2,11 +2,11 @@
 /* Class = "UITabBarItem"; title = "Item"; ObjectID = "Lqe-ok-T3j"; */
 "Lqe-ok-T3j.title" = "Item";
 
-/* Class = "UISegmentedControl"; vdG-YA-qQ4.segmentTitles[0] = "Income"; ObjectID = "vdG-YA-qQ4"; */
-"vdG-YA-qQ4.segmentTitles[0]" = "Приход";
+/* Class = "UISegmentedControl"; ZCQ-SP-zay.segmentTitles[0] = "Income"; ObjectID = "ZCQ-SP-zay"; */
+"ZCQ-SP-zay.segmentTitles[0]" = "Income";
 
-/* Class = "UISegmentedControl"; vdG-YA-qQ4.segmentTitles[1] = "Active"; ObjectID = "vdG-YA-qQ4"; */
-"vdG-YA-qQ4.segmentTitles[1]" = "Текущие";
+/* Class = "UISegmentedControl"; ZCQ-SP-zay.segmentTitles[1] = "Active"; ObjectID = "ZCQ-SP-zay"; */
+"ZCQ-SP-zay.segmentTitles[1]" = "Active";
 
-/* Class = "UISegmentedControl"; vdG-YA-qQ4.segmentTitles[2] = "Expense"; ObjectID = "vdG-YA-qQ4"; */
-"vdG-YA-qQ4.segmentTitles[2]" = "Расход";
+/* Class = "UISegmentedControl"; ZCQ-SP-zay.segmentTitles[2] = "Expense"; ObjectID = "ZCQ-SP-zay"; */
+"ZCQ-SP-zay.segmentTitles[2]" = "Expense";
