@@ -187,6 +187,52 @@
             </objects>
             <point key="canvasLocation" x="62" y="133"/>
         </scene>
+        <!--Root View Controller-->
+        <scene sceneID="RCG-9w-JTV">
+            <objects>
+                <tableViewController id="FXK-r1-ACh" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="eO4-3m-dmf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Bpa-sy-8FU">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bpa-sy-8FU" id="cHq-Pr-ISE">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="FXK-r1-ACh" id="dCR-9a-FWP"/>
+                            <outlet property="delegate" destination="FXK-r1-ACh" id="faq-C0-9tL"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="6hr-rz-uBD"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R9I-fz-U5P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="923" y="932"/>
+        </scene>
+        <!--Currencies-->
+        <scene sceneID="RTh-1W-RDM">
+            <objects>
+                <navigationController id="8yb-M6-cgN" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Currencies" image="icons8-stocks" id="Gb7-HS-fnC"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AZ4-Rb-soC">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="FXK-r1-ACh" kind="relationship" relationship="rootViewController" id="ZRY-HS-IlH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mN6-6P-7VG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="62" y="933"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hoj-6s-AAs">
             <objects>
@@ -198,6 +244,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="sPB-qa-3iO" kind="relationship" relationship="viewControllers" id="pRq-pc-2ye"/>
+                        <segue destination="8yb-M6-cgN" kind="relationship" relationship="viewControllers" id="qKl-Wu-Rsq"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mvO-QN-Eo5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -207,5 +254,6 @@
     </scenes>
     <resources>
         <image name="icons8-merchant-account" width="25" height="25"/>
+        <image name="icons8-stocks" width="25" height="25"/>
     </resources>
 </document>
