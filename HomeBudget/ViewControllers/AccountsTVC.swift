@@ -112,6 +112,18 @@ class AccountsTVC: UITableViewController, NSFetchedResultsControllerDelegate {
 
         cell.textLabel?.text = account.name
         
+        
+        let numberFormatter = NumberFormatter.init()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.maximumFractionDigits = 0
+        numberFormatter.currencyCode = account.currency
+        
+        if account.currency == "RUB" {
+            numberFormatter.currencySymbol = "₽"
+        }
+        
+        cell.detailTextLabel?.text = numberFormatter.string(from: account.value ?? 0)
+        
         return cell
         
     }

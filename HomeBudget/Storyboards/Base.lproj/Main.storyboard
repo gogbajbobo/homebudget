@@ -111,9 +111,20 @@
                                     <segment title="Expense"/>
                                 </segments>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55d-GM-vyf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account currency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4u-Rl-B6O">
+                                <rect key="frame" x="16" y="224" width="288" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQG-eX-igH">
+                                <rect key="frame" x="0.0" y="253" width="320" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="vKX-gT-ZjQ"/>
+                                </constraints>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55d-GM-vyf">
                                 <rect key="frame" x="16" y="434" width="288" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="saveButtonPressed:" destination="u5G-XW-2mP" eventType="touchUpInside" id="wb4-7y-o0v"/>
@@ -122,22 +133,32 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="1fl-we-A9n" firstAttribute="trailing" secondItem="55d-GM-vyf" secondAttribute="trailing" constant="16" id="272-ym-l3o"/>
                             <constraint firstItem="ehg-7u-LqI" firstAttribute="leading" secondItem="1fl-we-A9n" secondAttribute="leading" constant="16" id="2Oj-la-FH0"/>
                             <constraint firstItem="nxp-vM-MW1" firstAttribute="top" secondItem="fFI-Ps-aHq" secondAttribute="bottom" constant="8" id="55G-Xv-2M1"/>
                             <constraint firstItem="ehg-7u-LqI" firstAttribute="top" secondItem="1fl-we-A9n" secondAttribute="top" constant="28" id="6Ie-tD-vft"/>
+                            <constraint firstItem="lQG-eX-igH" firstAttribute="top" secondItem="p4u-Rl-B6O" secondAttribute="bottom" constant="8" id="ET4-pE-DiK"/>
                             <constraint firstItem="nxp-vM-MW1" firstAttribute="leading" secondItem="1fl-we-A9n" secondAttribute="leading" constant="16" id="Enf-Qu-G5x"/>
                             <constraint firstItem="1fl-we-A9n" firstAttribute="trailing" secondItem="ehg-7u-LqI" secondAttribute="trailing" constant="16" id="Q5t-Li-tB8"/>
+                            <constraint firstItem="1fl-we-A9n" firstAttribute="bottom" secondItem="55d-GM-vyf" secondAttribute="bottom" constant="55" id="SEM-Nl-9Bl"/>
                             <constraint firstItem="7HQ-KD-hvP" firstAttribute="top" secondItem="nxp-vM-MW1" secondAttribute="bottom" constant="8" id="XL7-ZU-wVD"/>
+                            <constraint firstItem="lQG-eX-igH" firstAttribute="leading" secondItem="1fl-we-A9n" secondAttribute="leading" id="Y0j-3Z-9jY"/>
                             <constraint firstItem="fFI-Ps-aHq" firstAttribute="top" secondItem="ehg-7u-LqI" secondAttribute="bottom" constant="8" id="ZcS-eB-m3B"/>
+                            <constraint firstItem="55d-GM-vyf" firstAttribute="leading" secondItem="1fl-we-A9n" secondAttribute="leading" constant="16" id="cpw-EU-thF"/>
+                            <constraint firstItem="1fl-we-A9n" firstAttribute="trailing" secondItem="lQG-eX-igH" secondAttribute="trailing" id="ehj-13-r24"/>
                             <constraint firstItem="1fl-we-A9n" firstAttribute="trailing" secondItem="nxp-vM-MW1" secondAttribute="trailing" constant="16" id="fA8-Mz-dQL"/>
+                            <constraint firstItem="p4u-Rl-B6O" firstAttribute="top" secondItem="7HQ-KD-hvP" secondAttribute="bottom" constant="8" id="kVo-cW-BGT"/>
                             <constraint firstItem="7HQ-KD-hvP" firstAttribute="leading" secondItem="1fl-we-A9n" secondAttribute="leading" constant="16" id="le5-CF-jDs"/>
                             <constraint firstItem="1fl-we-A9n" firstAttribute="trailing" secondItem="fFI-Ps-aHq" secondAttribute="trailing" constant="16" id="qiF-Nt-Gtg"/>
+                            <constraint firstItem="p4u-Rl-B6O" firstAttribute="leading" secondItem="1fl-we-A9n" secondAttribute="leading" constant="16" id="s69-FB-3Df"/>
+                            <constraint firstItem="1fl-we-A9n" firstAttribute="trailing" secondItem="p4u-Rl-B6O" secondAttribute="trailing" constant="16" id="sJ8-Rl-QOe"/>
                             <constraint firstItem="1fl-we-A9n" firstAttribute="trailing" secondItem="7HQ-KD-hvP" secondAttribute="trailing" constant="16" id="uV0-fb-8s7"/>
                             <constraint firstItem="fFI-Ps-aHq" firstAttribute="leading" secondItem="1fl-we-A9n" secondAttribute="leading" constant="16" id="vGz-zJ-krb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1fl-we-A9n"/>
                     </view>
                     <connections>
+                        <outlet property="currencyPicker" destination="lQG-eX-igH" id="57R-g5-CXr"/>
                         <outlet property="nameTextField" destination="fFI-Ps-aHq" id="dTI-yv-UN4"/>
                         <outlet property="saveButton" destination="55d-GM-vyf" id="1cw-19-Bia"/>
                         <outlet property="typeSelector" destination="7HQ-KD-hvP" id="3Uh-MQ-bSL"/>
