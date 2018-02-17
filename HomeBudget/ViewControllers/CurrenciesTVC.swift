@@ -21,6 +21,9 @@ class CurrenciesTVC: UITableViewController {
 
     }()
     
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
+    
+    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
@@ -38,6 +41,9 @@ class CurrenciesTVC: UITableViewController {
         checkStoredRates()
     }
     
+    
+    // MARK: - Methods
+    
     func checkStoredRates() {
         
         guard
@@ -46,7 +52,7 @@ class CurrenciesTVC: UITableViewController {
             var rates = currRates["rates"] as? Dictionary<String, Any>,
             let base = currRates["base"] as? String else {
                 return getCurrencyRates()
-            }
+        }
         
         self.title = currRates["date"] as? String ?? ""
         
@@ -54,12 +60,9 @@ class CurrenciesTVC: UITableViewController {
         ratesArray = rates.sorted(by: { $0.0 < $1.0 })
         
         tableView.reloadData()
-
+        
     }
-    
-    
-    // MARK: - Methods
-    
+
     func getCurrencyRates() {
         NetworkService().requestCurrencyRates(successCallback, failureCallback)
     }
@@ -93,6 +96,10 @@ class CurrenciesTVC: UITableViewController {
 
     }
 
+    @IBAction func refreshButtonPressed(_ sender: Any) {
+        getCurrencyRates()
+    }
+    
     
     // MARK: - Table view data source
 

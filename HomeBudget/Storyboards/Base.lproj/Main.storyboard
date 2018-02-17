@@ -243,7 +243,16 @@
                             <outlet property="delegate" destination="px8-jG-t7S" id="Kk4-Rl-DeV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="paa-vm-Vcp"/>
+                    <navigationItem key="navigationItem" id="paa-vm-Vcp">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="v58-AY-jlI">
+                            <connections>
+                                <action selector="refreshButtonPressed:" destination="px8-jG-t7S" id="ClB-fs-aCD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="refreshButton" destination="v58-AY-jlI" id="5Uh-ti-CVp"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PII-vq-KVz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
