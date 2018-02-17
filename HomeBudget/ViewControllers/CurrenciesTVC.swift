@@ -14,12 +14,10 @@ class CurrenciesTVC: UITableViewController {
     
     lazy var dateFormatter: DateFormatter = {
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        $0.dateFormat = "yyyy-MM-dd"
+        return $0
         
-        return dateFormatter
-
-    }()
+    }(DateFormatter())
     
     @IBOutlet weak var refreshButton: UIBarButtonItem!
     
