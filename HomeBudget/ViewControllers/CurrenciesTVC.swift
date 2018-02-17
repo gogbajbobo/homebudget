@@ -10,7 +10,7 @@ import UIKit
 
 class CurrenciesTVC: UITableViewController {
 
-    var rates: Dictionary<String, Any> = [:]
+    var ratesArray: [(key: String, value: Any)]?
     
     lazy var dateFormatter: DateFormatter = {
 
@@ -43,14 +43,14 @@ class CurrenciesTVC: UITableViewController {
         guard
             let currRates = UserDefaults.standard.dictionary(forKey: "currRates"),
             dateFormatter.string(from: Date.init()) == currRates["saveDate"] as? String,
-            let rates = currRates["rates"] as? Dictionary<String, Any>,
+            var rates = currRates["rates"] as? Dictionary<String, Any>,
             let base = currRates["base"] as? String else {
                 return getCurrencyRates()
             }
         
-        self.rates = rates
-        self.rates[base] = 1
-
+        rates[base] = 1
+        self.ratesArray = rates.sorted(by: { $0.0 < $1.0 })
+        
         tableView.reloadData()
 
     }
@@ -95,16 +95,24 @@ class CurrenciesTVC: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return ratesArray?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath)
+
+        cell.textLabel?.text = ratesArray?[indexPath.row].key
+        
+        let nf = NumberFormatter()
+        nf.maximumFractionDigits = 2
+        nf.minimumIntegerDigits = 1
+        
+        cell.detailTextLabel?.text = nf.string(from: ratesArray?[indexPath.row].value as? NSNumber ?? 0)
 
         return cell
         
