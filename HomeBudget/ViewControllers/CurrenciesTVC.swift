@@ -48,8 +48,10 @@ class CurrenciesTVC: UITableViewController {
                 return getCurrencyRates()
             }
         
+        self.title = currRates["date"] as? String ?? ""
+        
         rates[base] = 1
-        self.ratesArray = rates.sorted(by: { $0.0 < $1.0 })
+        ratesArray = rates.sorted(by: { $0.0 < $1.0 })
         
         tableView.reloadData()
 
