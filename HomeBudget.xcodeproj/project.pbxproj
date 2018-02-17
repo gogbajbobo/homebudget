@@ -30,6 +30,7 @@
 		2C54B0FF20371DEF00BDD12E /* CurrenciesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B0FE20371DEF00BDD12E /* CurrenciesTVC.swift */; };
 		2C54B105203720CC00BDD12E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B104203720CC00BDD12E /* NetworkService.swift */; };
 		2C54B109203723AB00BDD12E /* JSONHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B108203723AB00BDD12E /* JSONHandler.swift */; };
+		2C54B10E20385B7100BDD12E /* NetworkIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		2C54B0FE20371DEF00BDD12E /* CurrenciesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesTVC.swift; sourceTree = "<group>"; };
 		2C54B104203720CC00BDD12E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		2C54B108203723AB00BDD12E /* JSONHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONHandler.swift; sourceTree = "<group>"; };
+		2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 			children = (
 				2C54B104203720CC00BDD12E /* NetworkService.swift */,
 				2C54B108203723AB00BDD12E /* JSONHandler.swift */,
+				2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				2C54B0E02036D7E900BDD12E /* ActiveAccount+CoreDataClass.swift in Sources */,
 				2C54B0F92036DFAE00BDD12E /* AccountsTVC.swift in Sources */,
 				2C54B0FF20371DEF00BDD12E /* CurrenciesTVC.swift in Sources */,
+				2C54B10E20385B7100BDD12E /* NetworkIndicator.swift in Sources */,
 				2C54B0E42036D7E900BDD12E /* Account+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

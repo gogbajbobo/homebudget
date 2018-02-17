@@ -14,7 +14,10 @@ typealias NetServFailure = (Any?, Error?, Int?) -> Void
 typealias NetRequestCompletionHandler = (Data?, URLResponse?, Error?) -> Void
 
 protocol NetworkServiceProtocol {
+    
+    func performRequest(url: URL, _ success: NetServSuccess?, _ failure: NetServFailure?)
     func requestCurrencyRates(_ success: NetServSuccess?, _ failure: NetServFailure?)
+    
 }
 
 class NetworkService {
@@ -49,13 +52,23 @@ extension NetworkService: NetworkServiceProtocol {
     
     
     func requestCurrencyRates(_ success: NetServSuccess?, _ failure: NetServFailure?) {
+        performRequest(url: URL.init(string: "https://api.fixer.io/latest")!, success, failure)
+    }
+    
+    func performRequest(url: URL, _ success: NetServSuccess?, _ failure: NetServFailure?) {
         
-        let request = NSURLRequest(url: URL.init(string: "https://api.fixer.io/latest")!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0)
+        let selfDescribing =  String(describing: self)
+        
+        NetworkIndicator.startIndicator(sender: selfDescribing)
+        
+        let request = NSURLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0)
         
         let session = URLSession.shared
         
         task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-
+            
+            NetworkIndicator.stopIndicator(sender: selfDescribing)
+            
             guard let response = response as? HTTPURLResponse else {
                 
                 self.handleFailure(data, error, nil, failure)
@@ -79,7 +92,7 @@ extension NetworkService: NetworkServiceProtocol {
         })
         
         task?.resume()
-        
+    
     }
     
     func cancelRequest() {
