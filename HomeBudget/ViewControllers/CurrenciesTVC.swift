@@ -62,13 +62,13 @@ class CurrenciesTVC: UITableViewController {
     }
 
     func getCurrencyRates() {
-        NetworkService().requestCurrencyRates(successCallback, failureCallback)
+        NetworkService().requestCurrencyRates(successCallback, failureCallback, nil)
     }
     
     func successCallback(data: Any) {
         
-        DispatchQueue.main.async {
-            
+//        DispatchQueue.main.async {
+        
             print(data)
 
             if var data = data as? Dictionary<String, Any> {
@@ -82,15 +82,15 @@ class CurrenciesTVC: UITableViewController {
                 
             }
             
-        }
+//        }
         
     }
 
     func failureCallback(data: Any?, error: Error?, code: Int?) {
 
-        DispatchQueue.main.async {
-    
-        }
+//        DispatchQueue.main.async {
+//    
+//        }
 
     }
 
