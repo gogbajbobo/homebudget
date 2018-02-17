@@ -96,7 +96,13 @@ extension NetworkService: NetworkServiceProtocol {
     }
     
     func cancelRequest() {
+        
+        let selfDescribing =  String(describing: self)
+        NetworkIndicator.stopIndicator(sender: selfDescribing)
+        // TODO: have to check if session.dataTask completionHandler call stopIndicator too
+        
         task?.cancel()
+        
     }
     
 }
