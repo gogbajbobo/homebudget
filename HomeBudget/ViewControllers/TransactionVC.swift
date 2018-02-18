@@ -47,8 +47,11 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBAction func saveButtonPressed(_ sender: Any) {
     }
     
-    @IBAction func keyboardCancelPressed(_ sender: Any) { // TODO: is it Cancel button needed?
+    @IBAction func keyboardCancelPressed(_ sender: Any) {
+        
+        amountTextField.text = ""
         closeKeyboard()
+        
     }
     
     @IBAction func keyboardDonePressed(_ sender: Any) {
@@ -76,6 +79,8 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         // TODO: gesture not work if tap on selector/piker
         view.addGestureRecognizer(tap)
 
+        saveButton.isEnabled = false
+        
         fromPicker.dataSource = self
         fromPicker.delegate = self
         
@@ -131,11 +136,31 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
     }
     
+    func isTransactionDataValid() -> Bool {
+        return amountTextField.text?.doubleValue != nil
+    }
+    
     
     // MARK: - UITextFieldDelegate
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if let text = textField.text, let textRange = Range(range, in: text) {
+            
+            let updatedText = text.replacingCharacters(in: textRange, with: string)
+            
+            var valueIsValid = updatedText.doubleValue != nil
+            saveButton.isEnabled = valueIsValid
+            
+            valueIsValid |= updatedText == ""
+            
+            amountTextField.layer.borderWidth = valueIsValid ? 0.0 : 1.0
+            amountTextField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
+            amountTextField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
+            
+        }
         return true
+        
     }
 
 
