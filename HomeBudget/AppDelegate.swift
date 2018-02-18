@@ -6,6 +6,9 @@
 //  Copyright © 2018 Maxim Grigoriev. All rights reserved.
 //
 
+// TODO: add link to app icons source: https://icons8.com
+
+
 import UIKit
 import CoreData
 
