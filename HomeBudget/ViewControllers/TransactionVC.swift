@@ -14,7 +14,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     // MARK: Variables
     
-    var frc: NSFetchedResultsController<Account>!
+    var frc: NSFetchedResultsController<Account>?
 
     var accounts: [Account] = []
     var incomeAccounts: [IncomeAccount] = []
@@ -35,11 +35,11 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     // MARK: Storyboard actions
     
     @IBAction func fromSelectorChanged(_ sender: Any) {
-        refreshPickers()
+        refreshPickersData()
     }
     
     @IBAction func toSelectorChanged(_ sender: Any) {
-        refreshPickers()
+        refreshPickersData()
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
@@ -70,7 +70,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         amountTextField.delegate = self
         
         getAccounts()
-        refreshPickers()
+        refreshPickersData()
 
     }
     
@@ -83,25 +83,23 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
         frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        frc.delegate = self
+        frc?.delegate = self
         
         do {
-
-            try frc.performFetch()
-            
-            accounts = frc.fetchedObjects ?? []
-            incomeAccounts = accounts.filter({ $0 is IncomeAccount }) as! [IncomeAccount]
-            activeAccounts = accounts.filter({ $0 is ActiveAccount }) as! [ActiveAccount]
-            expenseAccounts = accounts.filter({ $0 is ExpenseAccount }) as! [ExpenseAccount]
-
+            try frc?.performFetch()
         } catch {
             fatalError("Failed to fetch entities: \(error)")
         }
         
     }
     
-    func refreshPickers() {
+    func refreshPickersData() {
         
+        accounts = frc?.fetchedObjects ?? []
+        incomeAccounts = accounts.filter({ $0 is IncomeAccount }) as! [IncomeAccount]
+        activeAccounts = accounts.filter({ $0 is ActiveAccount }) as! [ActiveAccount]
+        expenseAccounts = accounts.filter({ $0 is ExpenseAccount }) as! [ExpenseAccount]
+
         fromPicker.reloadAllComponents()
         toPicker.reloadAllComponents()
         
@@ -157,4 +155,11 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
 
     }
 
+    
+    // MARK: - NSFetchedResultsControllerDelegate
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        refreshPickersData()
+    }
+    
 }
