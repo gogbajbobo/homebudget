@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var typeSelector: UISegmentedControl!
@@ -61,10 +61,13 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     private func customInit() {
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard))
+        tap.delegate = self // TODO: gesture not work if tap on selector/piker
+        view.addGestureRecognizer(tap)
         
         nameTextField.delegate = self
         saveButton.isEnabled = false
@@ -78,6 +81,14 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
         }
         
     }
+    
+    
+    // MARK: Methods
+    
+    @objc func closeKeyboard() {
+        view.endEditing(true)
+    }
+    
     
     // MARK: - UITextFieldDelegate
     
@@ -114,4 +125,11 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
         return currencies[row]
     }
 
+    
+    // MARK: - UIGestureRecognizer
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return true
+    }
+    
 }
