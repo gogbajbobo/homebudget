@@ -10,6 +10,51 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Table View Controller-->
+        <scene sceneID="k5d-ix-TgH">
+            <objects>
+                <tableViewController id="bI7-5Y-G0G" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="V9q-wu-Wgp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="transactionCell" textLabel="zGj-LX-bBp" detailTextLabel="HpM-2k-n3S" style="IBUITableViewCellStyleValue1" id="K00-or-9BK">
+                                <rect key="frame" x="0.0" y="55.5" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K00-or-9BK" id="7Jy-lg-WtH">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zGj-LX-bBp">
+                                            <rect key="frame" x="16" y="12" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HpM-2k-n3S">
+                                            <rect key="frame" x="260" y="12" width="44" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bI7-5Y-G0G" id="unG-ke-SQV"/>
+                            <outlet property="delegate" destination="bI7-5Y-G0G" id="1kK-Xm-Fb5"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="ZWs-vk-1NC"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VX5-NA-0hk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="923" y="-639"/>
+        </scene>
         <!--AccountsTVC-->
         <scene sceneID="Qr0-72-fTa">
             <objects>
@@ -264,10 +309,12 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="jGW-lM-uvQ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AJG-nJ-kPp">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <segue destination="NJP-hd-EDz" kind="relationship" relationship="viewControllers" id="scR-Ub-Fxs"/>
                         <segue destination="sPB-qa-3iO" kind="relationship" relationship="viewControllers" id="pRq-pc-2ye"/>
                         <segue destination="8yb-M6-cgN" kind="relationship" relationship="viewControllers" id="qKl-Wu-Rsq"/>
                     </connections>
@@ -276,8 +323,28 @@
             </objects>
             <point key="canvasLocation" x="-786" y="133"/>
         </scene>
+        <!--Transactions-->
+        <scene sceneID="I0t-dA-i6M">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NJP-hd-EDz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Transactions" image="icons8-check" id="Snk-Iy-jvx"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jez-sA-sMS">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bI7-5Y-G0G" kind="relationship" relationship="rootViewController" id="4Qp-8o-pfZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SxX-7c-Wzz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="62" y="-639"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="icons8-check" width="25" height="25"/>
         <image name="icons8-merchant-account" width="25" height="25"/>
         <image name="icons8-stocks" width="25" height="25"/>
     </resources>

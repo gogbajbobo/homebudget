@@ -31,6 +31,8 @@
 		2C54B105203720CC00BDD12E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B104203720CC00BDD12E /* NetworkService.swift */; };
 		2C54B109203723AB00BDD12E /* JSONHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B108203723AB00BDD12E /* JSONHandler.swift */; };
 		2C54B10E20385B7100BDD12E /* NetworkIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */; };
+		2CE2F94D2039717E00283C11 /* TransactionsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */; };
+		2CE2F94F203971B900283C11 /* FetchedResultsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,8 @@
 		2C54B104203720CC00BDD12E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		2C54B108203723AB00BDD12E /* JSONHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONHandler.swift; sourceTree = "<group>"; };
 		2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIndicator.swift; sourceTree = "<group>"; };
+		2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTVC.swift; sourceTree = "<group>"; };
+		2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,8 @@
 				2C54B0F82036DFAE00BDD12E /* AccountsTVC.swift */,
 				2C54B0FC2036EBFA00BDD12E /* AccountVC.swift */,
 				2C54B0FE20371DEF00BDD12E /* CurrenciesTVC.swift */,
+				2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */,
+				2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -357,7 +363,9 @@
 				2C54B0E22036D7E900BDD12E /* ExpenseAccount+CoreDataClass.swift in Sources */,
 				2C54B109203723AB00BDD12E /* JSONHandler.swift in Sources */,
 				2C54B0E72036D7E900BDD12E /* Transaction+CoreDataProperties.swift in Sources */,
+				2CE2F94D2039717E00283C11 /* TransactionsTVC.swift in Sources */,
 				2C54B0E62036D7E900BDD12E /* Transaction+CoreDataClass.swift in Sources */,
+				2CE2F94F203971B900283C11 /* FetchedResultsTVC.swift in Sources */,
 				2C54B0E52036D7E900BDD12E /* Account+CoreDataProperties.swift in Sources */,
 				2C54B0FD2036EBFA00BDD12E /* AccountVC.swift in Sources */,
 				2C54B0E02036D7E900BDD12E /* ActiveAccount+CoreDataClass.swift in Sources */,
