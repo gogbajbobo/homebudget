@@ -14,15 +14,13 @@ class AccountsTVC: FetchedResultsTVC {
 
     @IBOutlet weak var accountsTypeSelector: UISegmentedControl!
     
-    var context: NSManagedObjectContext?
-    var frc: NSFetchedResultsController<Account>?
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        customInit()
+        fetchData()
 
     }
 
@@ -31,14 +29,6 @@ class AccountsTVC: FetchedResultsTVC {
         // Dispose of any resources that can be recreated.
     }
 
-    private func customInit() {
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        context = appDelegate.persistentContainer.viewContext
-        
-        fetchData()
-        
-    }
     
     // MARK: Methods
     
@@ -59,7 +49,7 @@ class AccountsTVC: FetchedResultsTVC {
             entityName = String(describing: Account.self)
         }
         
-        let fetchRequest = NSFetchRequest<Account>(entityName: entityName)
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
         frc = NSFetchedResultsController(fetchRequest: fetchRequest,
@@ -86,32 +76,12 @@ class AccountsTVC: FetchedResultsTVC {
     
     
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        
-        if let frc = frc {
-            return frc.sections!.count
-        }
-        return 0
-        
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        guard let sections = frc?.sections else {
-            fatalError("No sections in fetchedResultsController")
-        }
-        let sectionInfo = sections[section]
-        return sectionInfo.numberOfObjects
-        
-    }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
         
-        guard let account = frc?.object(at: indexPath) else {
+        guard let account = frc?.object(at: indexPath) as? Account else {
             fatalError("Attempt to configure cell without a managed object")
         }
 

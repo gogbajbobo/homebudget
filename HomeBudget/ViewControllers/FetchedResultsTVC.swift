@@ -12,24 +12,45 @@ import CoreData
 
 class FetchedResultsTVC: UITableViewController, NSFetchedResultsControllerDelegate {
 
+    var context: NSManagedObjectContext?
+    var frc: NSFetchedResultsController<NSManagedObject>?
+
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        context = appDelegate.persistentContainer.viewContext
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if let frc = frc {
+            return frc.sections!.count
+        }
         return 0
+        
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        
+        guard let sections = frc?.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[section]
+        return sectionInfo.numberOfObjects
+        
     }
 
+    
     // MARK: - NSFetchedResultsControllerDelegate
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
