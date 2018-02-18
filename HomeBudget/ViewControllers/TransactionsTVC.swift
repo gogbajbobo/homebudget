@@ -7,36 +7,59 @@
 //
 
 import UIKit
+import CoreData
 
 class TransactionsTVC: FetchedResultsTVC {
 
+    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
+
         super.viewDidLoad()
+        fetchData()
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    
+    // MARK: Methods
+    
+    func fetchData() {
+        
+        guard let context = context else { return }
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: String(describing: Transaction.self))
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        
+        frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                         managedObjectContext: context,
+                                         sectionNameKeyPath: nil,
+                                         cacheName: nil)
+        frc?.delegate = self
+        
+        do {
+            try frc?.performFetch()
+        } catch {
+            fatalError("Failed to fetch entities: \(error)")
+        }
+        
+        tableView.reloadData()
 
+    }
+
+    
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath)
         return cell
+        
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
