@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
 
+    
+    // MARK: Variables
+    
+    var accounts: [Account] = []
     
     // MARK: Storyboard outlets
     
@@ -48,6 +53,8 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     func customInit() {
         
+        getAccounts()
+
         fromPicker.dataSource = self
         fromPicker.delegate = self
         
@@ -55,6 +62,21 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         toPicker.delegate = self
         
         amountTextField.delegate = self
+        
+    }
+    
+    func getAccounts() {
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: String(describing: Account.self))
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        do {
+            accounts = try context.fetch(fetchRequest) as? [Account] ?? []
+        } catch {
+            fatalError("Failed to fetch accounts: \(error)")
+        }
         
     }
     
