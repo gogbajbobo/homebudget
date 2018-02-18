@@ -31,6 +31,8 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet weak var toPicker: UIPickerView!
     @IBOutlet weak var saveButton: UIButton!
     
+    @IBOutlet var keyboardToolbar: UIToolbar! // TODO: why not auto-weak?
+    
     
     // MARK: Storyboard actions
     
@@ -44,6 +46,15 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     @IBAction func saveButtonPressed(_ sender: Any) {
     }
+    
+    @IBAction func keyboardCancelPressed(_ sender: Any) { // TODO: is it Cancel button needed?
+        closeKeyboard()
+    }
+    
+    @IBAction func keyboardDonePressed(_ sender: Any) {
+        closeKeyboard()
+    }
+    
     
     
     // MARK: Lifecycle
@@ -61,6 +72,10 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     func customInit() {
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard))
+        // TODO: gesture not work if tap on selector/piker
+        view.addGestureRecognizer(tap)
+
         fromPicker.dataSource = self
         fromPicker.delegate = self
         
@@ -68,10 +83,18 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         toPicker.delegate = self
         
         amountTextField.delegate = self
+        amountTextField.inputAccessoryView = keyboardToolbar
         
         getAccounts()
         refreshPickersData()
 
+    }
+    
+    
+    // MARK: Methods
+
+    @objc func closeKeyboard() {
+        view.endEditing(true)
     }
     
     func getAccounts() {
@@ -82,7 +105,10 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         let fetchRequest = NSFetchRequest<Account>.init(entityName: String(describing: Account.self))
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
-        frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                         managedObjectContext: context,
+                                         sectionNameKeyPath: nil,
+                                         cacheName: nil)
         frc?.delegate = self
         
         do {

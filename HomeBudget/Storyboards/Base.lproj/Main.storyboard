@@ -164,12 +164,30 @@
                         <outlet property="amountTextField" destination="RrW-Fm-DZY" id="yId-TN-qFf"/>
                         <outlet property="fromPicker" destination="ObB-gc-964" id="h1p-Fv-5c0"/>
                         <outlet property="fromSelector" destination="M1F-KM-chL" id="g70-B0-X1O"/>
+                        <outlet property="keyboardToolbar" destination="GsJ-es-pub" id="Bx5-My-TWe"/>
                         <outlet property="saveButton" destination="AKu-N2-8Ix" id="UvZ-Dt-spw"/>
                         <outlet property="toPicker" destination="QFr-q1-ZZp" id="cnz-ve-mig"/>
                         <outlet property="toSelector" destination="fcW-aB-Bj8" id="Tq4-ZY-PtF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDp-EO-1g1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="GsJ-es-pub">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem systemItem="cancel" id="Vgo-LT-Ohc">
+                            <connections>
+                                <action selector="keyboardCancelPressed:" destination="VPw-IT-eVB" id="qyA-tw-adf"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="u0K-py-6Rd"/>
+                        <barButtonItem systemItem="done" id="N7P-wz-2Qz">
+                            <connections>
+                                <action selector="keyboardDonePressed:" destination="VPw-IT-eVB" id="MRy-wv-UcD"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
             </objects>
             <point key="canvasLocation" x="1807.5" y="-639.08450704225356"/>
         </scene>
