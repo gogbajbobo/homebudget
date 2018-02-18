@@ -45,6 +45,22 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        
+        if !isTransactionDataValid() { return }
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let transaction = NSEntityDescription.insertNewObject(forEntityName: String(describing: Transaction.self), into: context) as! Transaction
+        
+        transaction.value = amountTextField.text?.doubleValue as? NSDecimalNumber
+        transaction.date = Date() as NSDate
+        
+        appDelegate.saveContext()
+        
+        navigationController?.popViewController(animated: true)
+
+        
     }
     
     @IBAction func keyboardCancelPressed(_ sender: Any) {
