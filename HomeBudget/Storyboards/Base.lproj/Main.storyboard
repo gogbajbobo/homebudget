@@ -68,13 +68,93 @@
                     <view key="view" contentMode="scaleToFill" id="eMb-0K-YX8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMF-xU-VGU">
+                                <rect key="frame" x="16" y="81" width="52" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="52" id="O6h-y8-lSH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="M1F-KM-chL">
+                                <rect key="frame" x="76" y="78" width="228" height="29"/>
+                                <segments>
+                                    <segment title="Income"/>
+                                    <segment title="Active"/>
+                                </segments>
+                            </segmentedControl>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ObB-gc-964">
+                                <rect key="frame" x="0.0" y="114" width="320" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="7Xu-zW-woT"/>
+                                </constraints>
+                            </pickerView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RrW-Fm-DZY">
+                                <rect key="frame" x="16" y="250" width="288" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7A-HX-Yl6">
+                                <rect key="frame" x="16" y="291" width="52" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="52" id="bHi-Vr-ggD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fcW-aB-Bj8">
+                                <rect key="frame" x="76" y="288" width="228" height="29"/>
+                                <segments>
+                                    <segment title="Active"/>
+                                    <segment title="Expense"/>
+                                </segments>
+                            </segmentedControl>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QFr-q1-ZZp">
+                                <rect key="frame" x="0.0" y="324" width="320" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="QC3-Up-UHj"/>
+                                </constraints>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKu-N2-8Ix">
+                                <rect key="frame" x="16" y="460" width="288" height="30"/>
+                                <state key="normal" title="Save"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="QFr-q1-ZZp" firstAttribute="leading" secondItem="rcL-03-aRc" secondAttribute="leading" id="7J5-Pm-V96"/>
+                            <constraint firstItem="lMF-xU-VGU" firstAttribute="leading" secondItem="rcL-03-aRc" secondAttribute="leading" constant="16" id="AxE-YG-EW1"/>
+                            <constraint firstItem="QFr-q1-ZZp" firstAttribute="top" secondItem="fcW-aB-Bj8" secondAttribute="bottom" constant="8" id="DVI-rv-2nz"/>
+                            <constraint firstItem="RrW-Fm-DZY" firstAttribute="leading" secondItem="rcL-03-aRc" secondAttribute="leading" constant="16" id="GFn-5C-eOS"/>
+                            <constraint firstItem="M1F-KM-chL" firstAttribute="top" secondItem="rcL-03-aRc" secondAttribute="top" constant="14" id="He0-2x-DnM"/>
+                            <constraint firstItem="M1F-KM-chL" firstAttribute="leading" secondItem="lMF-xU-VGU" secondAttribute="trailing" constant="8" id="MDo-Tn-2BG"/>
+                            <constraint firstItem="rcL-03-aRc" firstAttribute="trailing" secondItem="AKu-N2-8Ix" secondAttribute="trailing" constant="16" id="UAH-gZ-ojc"/>
+                            <constraint firstItem="AKu-N2-8Ix" firstAttribute="leading" secondItem="rcL-03-aRc" secondAttribute="leading" constant="16" id="VUO-PN-yQT"/>
+                            <constraint firstItem="ObB-gc-964" firstAttribute="top" secondItem="M1F-KM-chL" secondAttribute="bottom" constant="8" id="VZq-4N-dRp"/>
+                            <constraint firstItem="rcL-03-aRc" firstAttribute="trailing" secondItem="fcW-aB-Bj8" secondAttribute="trailing" constant="16" id="Way-Kg-B7E"/>
+                            <constraint firstItem="fcW-aB-Bj8" firstAttribute="leading" secondItem="Q7A-HX-Yl6" secondAttribute="trailing" constant="8" id="ZLW-7s-6O2"/>
+                            <constraint firstItem="lMF-xU-VGU" firstAttribute="top" secondItem="rcL-03-aRc" secondAttribute="top" constant="17" id="cwc-ak-pwn"/>
+                            <constraint firstItem="rcL-03-aRc" firstAttribute="trailing" secondItem="QFr-q1-ZZp" secondAttribute="trailing" id="evn-1v-rJi"/>
+                            <constraint firstItem="rcL-03-aRc" firstAttribute="trailing" secondItem="RrW-Fm-DZY" secondAttribute="trailing" constant="16" id="igs-sc-kgC"/>
+                            <constraint firstItem="rcL-03-aRc" firstAttribute="trailing" secondItem="ObB-gc-964" secondAttribute="trailing" id="kiw-lr-GRw"/>
+                            <constraint firstItem="fcW-aB-Bj8" firstAttribute="top" secondItem="RrW-Fm-DZY" secondAttribute="bottom" constant="8" id="ksJ-ea-auV"/>
+                            <constraint firstItem="rcL-03-aRc" firstAttribute="trailing" secondItem="M1F-KM-chL" secondAttribute="trailing" constant="16" id="kxt-7g-jI7"/>
+                            <constraint firstItem="ObB-gc-964" firstAttribute="leading" secondItem="rcL-03-aRc" secondAttribute="leading" id="lGf-wh-7BX"/>
+                            <constraint firstItem="Q7A-HX-Yl6" firstAttribute="leading" secondItem="rcL-03-aRc" secondAttribute="leading" constant="16" id="qBS-Bq-Bd1"/>
+                            <constraint firstItem="AKu-N2-8Ix" firstAttribute="top" secondItem="QFr-q1-ZZp" secondAttribute="bottom" constant="8" id="qIn-OZ-nsl"/>
+                            <constraint firstItem="Q7A-HX-Yl6" firstAttribute="top" secondItem="RrW-Fm-DZY" secondAttribute="bottom" constant="11" id="yON-SR-oPQ"/>
+                            <constraint firstItem="RrW-Fm-DZY" firstAttribute="top" secondItem="ObB-gc-964" secondAttribute="bottom" constant="8" id="zDo-2t-oLd"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="rcL-03-aRc"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDp-EO-1g1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1808" y="-639"/>
+            <point key="canvasLocation" x="1807.5" y="-639.08450704225356"/>
         </scene>
         <!--AccountsTVC-->
         <scene sceneID="Qr0-72-fTa">
