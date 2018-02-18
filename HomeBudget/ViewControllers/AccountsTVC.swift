@@ -88,7 +88,7 @@ class AccountsTVC: FetchedResultsTVC {
         cell.textLabel?.text = account.name
         
         
-        let numberFormatter = NumberFormatter.init()
+        let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
         numberFormatter.maximumFractionDigits = 0
         numberFormatter.currencyCode = account.currency
