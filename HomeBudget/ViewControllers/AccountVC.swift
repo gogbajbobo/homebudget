@@ -93,6 +93,13 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
         
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        return true
+        
+    }
+    
     // MARK: - UIPickerViewDataSource, UIPickerViewDelegate
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
