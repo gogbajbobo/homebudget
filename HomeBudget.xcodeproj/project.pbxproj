@@ -33,6 +33,7 @@
 		2C54B10E20385B7100BDD12E /* NetworkIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */; };
 		2CE2F94D2039717E00283C11 /* TransactionsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */; };
 		2CE2F94F203971B900283C11 /* FetchedResultsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */; };
+		2CE2F951203972DB00283C11 /* TransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F950203972DB00283C11 /* TransactionVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIndicator.swift; sourceTree = "<group>"; };
 		2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTVC.swift; sourceTree = "<group>"; };
 		2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsTVC.swift; sourceTree = "<group>"; };
+		2CE2F950203972DB00283C11 /* TransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,11 +191,12 @@
 		2C54B0EC2036D8EB00BDD12E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */,
 				2C54B0F82036DFAE00BDD12E /* AccountsTVC.swift */,
 				2C54B0FC2036EBFA00BDD12E /* AccountVC.swift */,
 				2C54B0FE20371DEF00BDD12E /* CurrenciesTVC.swift */,
 				2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */,
-				2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */,
+				2CE2F950203972DB00283C11 /* TransactionVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				2C54B0E02036D7E900BDD12E /* ActiveAccount+CoreDataClass.swift in Sources */,
 				2C54B0F92036DFAE00BDD12E /* AccountsTVC.swift in Sources */,
 				2C54B0FF20371DEF00BDD12E /* CurrenciesTVC.swift in Sources */,
+				2CE2F951203972DB00283C11 /* TransactionVC.swift in Sources */,
 				2C54B10E20385B7100BDD12E /* NetworkIndicator.swift in Sources */,
 				2C54B0E42036D7E900BDD12E /* Account+CoreDataClass.swift in Sources */,
 			);
