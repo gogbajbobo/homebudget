@@ -33,9 +33,11 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     // MARK: Storyboard actions
     
     @IBAction func fromSelectorChanged(_ sender: Any) {
+        refreshPickers()
     }
     
     @IBAction func toSelectorChanged(_ sender: Any) {
+        refreshPickers()
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
@@ -57,8 +59,6 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     func customInit() {
         
-        getAccounts()
-
         fromPicker.dataSource = self
         fromPicker.delegate = self
         
@@ -67,6 +67,9 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         amountTextField.delegate = self
         
+        getAccounts()
+        refreshPickers()
+
     }
     
     func getAccounts() {
@@ -89,6 +92,13 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
     }
     
+    func refreshPickers() {
+        
+        fromPicker.reloadAllComponents()
+        toPicker.reloadAllComponents()
+        
+    }
+    
     
     // MARK: - UITextFieldDelegate
     
@@ -104,11 +114,39 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 0
+        return accountsForPicker(pickerView).count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return nil
+        
+        let account = accountsForPicker(pickerView)[row]
+        
+        guard
+            let name = account.name,
+            let currency = account.currency else { return nil }
+        
+        return name + " " + currency
+        
+    }
+    
+    func accountsForPicker(_ picker: UIPickerView) -> [Account] {
+        
+        if picker == fromPicker {
+            
+            if fromSelector.selectedSegmentIndex == 0 { return incomeAccounts }
+            if fromSelector.selectedSegmentIndex == 1 { return activeAccounts }
+
+        }
+        
+        if picker == toPicker {
+            
+            if toSelector.selectedSegmentIndex == 0 { return activeAccounts }
+            if toSelector.selectedSegmentIndex == 1 { return expenseAccounts }
+
+        }
+        
+        return []
+
     }
 
 }
