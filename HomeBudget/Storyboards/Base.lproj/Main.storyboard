@@ -84,6 +84,9 @@
                                     <segment title="Income"/>
                                     <segment title="Active"/>
                                 </segments>
+                                <connections>
+                                    <action selector="fromSelectorChanged:" destination="VPw-IT-eVB" eventType="valueChanged" id="f1p-51-vP6"/>
+                                </connections>
                             </segmentedControl>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ObB-gc-964">
                                 <rect key="frame" x="0.0" y="114" width="320" height="128"/>
@@ -95,7 +98,7 @@
                                 <rect key="frame" x="16" y="250" width="288" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7A-HX-Yl6">
                                 <rect key="frame" x="16" y="291" width="52" height="21"/>
@@ -112,6 +115,9 @@
                                     <segment title="Active"/>
                                     <segment title="Expense"/>
                                 </segments>
+                                <connections>
+                                    <action selector="toSelectorChanged:" destination="VPw-IT-eVB" eventType="valueChanged" id="tgP-ec-02p"/>
+                                </connections>
                             </segmentedControl>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QFr-q1-ZZp">
                                 <rect key="frame" x="0.0" y="324" width="320" height="128"/>
@@ -122,6 +128,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKu-N2-8Ix">
                                 <rect key="frame" x="16" y="460" width="288" height="30"/>
                                 <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonPressed:" destination="VPw-IT-eVB" eventType="touchUpInside" id="vNX-CG-KYw"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -151,6 +160,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rcL-03-aRc"/>
                     </view>
+                    <connections>
+                        <outlet property="amountTextField" destination="RrW-Fm-DZY" id="yId-TN-qFf"/>
+                        <outlet property="fromPicker" destination="ObB-gc-964" id="h1p-Fv-5c0"/>
+                        <outlet property="fromSelector" destination="M1F-KM-chL" id="g70-B0-X1O"/>
+                        <outlet property="saveButton" destination="AKu-N2-8Ix" id="UvZ-Dt-spw"/>
+                        <outlet property="toPicker" destination="QFr-q1-ZZp" id="cnz-ve-mig"/>
+                        <outlet property="toSelector" destination="fcW-aB-Bj8" id="Tq4-ZY-PtF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDp-EO-1g1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

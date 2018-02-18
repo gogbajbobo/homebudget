@@ -10,6 +10,31 @@ import UIKit
 
 class TransactionVC: UIViewController {
 
+    
+    // MARK: Storyboard outlets
+    
+    @IBOutlet weak var fromSelector: UISegmentedControl!
+    @IBOutlet weak var fromPicker: UIPickerView!
+    @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var toSelector: UISegmentedControl!
+    @IBOutlet weak var toPicker: UIPickerView!
+    @IBOutlet weak var saveButton: UIButton!
+    
+    
+    // MARK: Storyboard actions
+    
+    @IBAction func fromSelectorChanged(_ sender: Any) {
+    }
+    
+    @IBAction func toSelectorChanged(_ sender: Any) {
+    }
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
+    }
+    
+    
+    // MARK: Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
