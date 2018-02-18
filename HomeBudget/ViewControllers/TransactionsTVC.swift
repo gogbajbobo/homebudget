@@ -57,6 +57,28 @@ class TransactionsTVC: FetchedResultsTVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath)
+        
+        guard let transaction = frc?.object(at: indexPath) as? Transaction else {
+            fatalError("Attempt to configure cell without a managed object")
+        }
+        
+        guard let fromAccount = transaction.fromAccount else {
+            return cell
+        }
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.maximumFractionDigits = 0
+        numberFormatter.currencyCode = fromAccount.currency
+        
+        if fromAccount.currency == "RUB" {
+            numberFormatter.currencySymbol = "₽"
+        }
+        
+        cell.textLabel?.text = (fromAccount.name ?? "") + " — " + (numberFormatter.string(from: transaction.value ?? 0) ?? "")
+        
+        cell.detailTextLabel?.text = transaction.toAccount?.name
+
         return cell
         
     }
