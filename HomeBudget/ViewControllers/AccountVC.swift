@@ -26,13 +26,13 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
         
         switch typeSelector.selectedSegmentIndex {
         case 0:
-            entityName = "IncomeAccount"
+            entityName = String(describing: IncomeAccount.self)
         case 1:
-            entityName = "ActiveAccount"
+            entityName = String(describing: ActiveAccount.self)
         case 2:
-            entityName = "ExpenseAccount"
+            entityName = String(describing: ExpenseAccount.self)
         default:
-            entityName = "Account"
+            entityName = String(describing: Account.self)
         }
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate

@@ -47,7 +47,7 @@ class CurrenciesTVC: UITableViewController {
         
         guard
             let currRates = UserDefaults.standard.dictionary(forKey: "currRates"),
-            dateFormatter.string(from: Date.init()) == currRates["saveDate"] as? String,
+            dateFormatter.string(from: Date()) == currRates["saveDate"] as? String,
             var rates = currRates["rates"] as? Dictionary<String, Any>,
             let base = currRates["base"] as? String else {
                 return getCurrencyRates()
@@ -91,7 +91,7 @@ class CurrenciesTVC: UITableViewController {
 
             if var data = data as? Dictionary<String, Any> {
 
-                data["saveDate"] = self.dateFormatter.string(from: Date.init())
+                data["saveDate"] = self.dateFormatter.string(from: Date())
                 
                 UserDefaults.standard.set(data, forKey: "currRates")
                 UserDefaults.standard.synchronize()
