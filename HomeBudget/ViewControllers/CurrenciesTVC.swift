@@ -11,6 +11,7 @@ import UIKit
 class CurrenciesTVC: UITableViewController {
 
     var ratesArray: [(key: String, value: Any)]?
+    var selectedCurrency: (String, Int)?
     
     lazy var dateFormatter: DateFormatter = {
 
@@ -113,61 +114,44 @@ class CurrenciesTVC: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath)
 
-        cell.textLabel?.text = ratesArray?[indexPath.row].key
+        cell.textLabel?.text = getCurrencyName(atIndex: indexPath.row)
         
         let nf = NumberFormatter()
         nf.maximumFractionDigits = 2
         nf.minimumIntegerDigits = 1
         
-        cell.detailTextLabel?.text = nf.string(from: ratesArray?[indexPath.row].value as? NSNumber ?? 0)
+        
+        var rate = getRateValue(atIndex: indexPath.row) ?? 0
+        
+        if
+            let index = selectedCurrency?.1,
+            let baseRate = getRateValue(atIndex: index) {
+            
+            rate = NSNumber(floatLiteral: (rate.doubleValue / baseRate.doubleValue))
+            
+        }
+        
+        cell.detailTextLabel?.text = nf.string(from: rate)
 
         return cell
         
     }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let name = getCurrencyName(atIndex: indexPath.row) else { return }
+        
+        selectedCurrency = (name, indexPath.row)
+        tableView.reloadData()
 
     }
-    */
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    private func getCurrencyName(atIndex: Int) -> String? {
+        return ratesArray?[atIndex].key
     }
-    */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    private func getRateValue(atIndex: Int) -> NSNumber? {
+        return ratesArray?[atIndex].value as? NSNumber
     }
-    */
 
 }
