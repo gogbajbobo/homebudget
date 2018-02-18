@@ -34,6 +34,7 @@
 		2CE2F94D2039717E00283C11 /* TransactionsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */; };
 		2CE2F94F203971B900283C11 /* FetchedResultsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */; };
 		2CE2F951203972DB00283C11 /* TransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F950203972DB00283C11 /* TransactionVC.swift */; };
+		2CE2F9542039C00E00283C11 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F9532039C00E00283C11 /* String+extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTVC.swift; sourceTree = "<group>"; };
 		2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsTVC.swift; sourceTree = "<group>"; };
 		2CE2F950203972DB00283C11 /* TransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionVC.swift; sourceTree = "<group>"; };
+		2CE2F9532039C00E00283C11 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 		2C54B08F2036D3E200BDD12E /* HomeBudget */ = {
 			isa = PBXGroup;
 			children = (
+				2CE2F9522039BF9400283C11 /* Extensions */,
 				2C54B1002037205E00BDD12E /* Services */,
 				2C54B0ED2036D91100BDD12E /* Storyboards */,
 				2C54B0EC2036D8EB00BDD12E /* ViewControllers */,
@@ -218,6 +221,14 @@
 				2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		2CE2F9522039BF9400283C11 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2CE2F9532039C00E00283C11 /* String+extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,6 +383,7 @@
 				2C54B0E52036D7E900BDD12E /* Account+CoreDataProperties.swift in Sources */,
 				2C54B0FD2036EBFA00BDD12E /* AccountVC.swift in Sources */,
 				2C54B0E02036D7E900BDD12E /* ActiveAccount+CoreDataClass.swift in Sources */,
+				2CE2F9542039C00E00283C11 /* String+extension.swift in Sources */,
 				2C54B0F92036DFAE00BDD12E /* AccountsTVC.swift in Sources */,
 				2C54B0FF20371DEF00BDD12E /* CurrenciesTVC.swift in Sources */,
 				2CE2F951203972DB00283C11 /* TransactionVC.swift in Sources */,
