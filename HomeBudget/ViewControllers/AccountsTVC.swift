@@ -14,8 +14,8 @@ class AccountsTVC: FetchedResultsTVC {
 
     @IBOutlet weak var accountsTypeSelector: UISegmentedControl!
     
-    var context: NSManagedObjectContext!
-    var frc: NSFetchedResultsController<Account>!
+    var context: NSManagedObjectContext?
+    var frc: NSFetchedResultsController<Account>?
     
     // MARK: - Lifecycle
     
@@ -44,6 +44,8 @@ class AccountsTVC: FetchedResultsTVC {
     
     private func fetchData() {
         
+        guard let context = context else { return }
+        
         let entityName: String
         
         switch accountsTypeSelector.selectedSegmentIndex {
@@ -60,11 +62,14 @@ class AccountsTVC: FetchedResultsTVC {
         let fetchRequest = NSFetchRequest<Account>(entityName: entityName)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
-        frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        frc.delegate = self
+        frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                         managedObjectContext: context,
+                                         sectionNameKeyPath: nil,
+                                         cacheName: nil)
+        frc?.delegate = self
 
         do {
-            try frc.performFetch()
+            try frc?.performFetch()
         } catch {
             fatalError("Failed to fetch entities: \(error)")
         }
@@ -135,9 +140,7 @@ class AccountsTVC: FetchedResultsTVC {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            
-            if let account = frc?.object(at: indexPath) { context.delete(account) }
-
+            if let account = frc?.object(at: indexPath) { context?.delete(account) }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
