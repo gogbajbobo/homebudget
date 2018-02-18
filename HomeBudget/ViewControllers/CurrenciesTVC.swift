@@ -53,13 +53,30 @@ class CurrenciesTVC: UITableViewController {
                 return getCurrencyRates()
         }
         
-        self.title = currRates["date"] as? String ?? ""
-        
         rates[base] = 1
         ratesArray = rates.sorted(by: { $0.0 < $1.0 })
         
+        setupTitle()
         tableView.reloadData()
         
+    }
+    
+    func setupTitle() {
+        
+        guard let currRates = UserDefaults.standard.dictionary(forKey: "currRates") else { return }
+
+        var titleText = currRates["date"] as? String ?? ""
+        defer { navigationItem.title = titleText }
+        
+        guard let currName = selectedCurrency?.0 else {
+
+            guard let base = currRates["base"] as? String else { return }
+            return titleText = titleText + " / " + base
+            
+        }
+
+        titleText = titleText + " / " + currName
+
     }
 
     func getCurrencyRates() {
@@ -142,6 +159,8 @@ class CurrenciesTVC: UITableViewController {
         guard let name = getCurrencyName(atIndex: indexPath.row) else { return }
         
         selectedCurrency = (name, indexPath.row)
+
+        setupTitle()
         tableView.reloadData()
 
     }
