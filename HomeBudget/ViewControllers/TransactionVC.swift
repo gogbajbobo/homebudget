@@ -9,11 +9,13 @@
 import UIKit
 import CoreData
 
-class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
 
     
     // MARK: Variables
     
+    var frc: NSFetchedResultsController<Account>!
+
     var accounts: [Account] = []
     var incomeAccounts: [IncomeAccount] = []
     var activeAccounts: [ActiveAccount] = []
@@ -74,20 +76,26 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     func getAccounts() {
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: String(describing: Account.self))
-        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
+
+        let fetchRequest = NSFetchRequest<Account>.init(entityName: String(describing: Account.self))
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        
+        frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        frc.delegate = self
         
         do {
+
+            try frc.performFetch()
             
-            accounts = try context.fetch(fetchRequest) as? [Account] ?? []
+            accounts = frc.fetchedObjects ?? []
             incomeAccounts = accounts.filter({ $0 is IncomeAccount }) as! [IncomeAccount]
             activeAccounts = accounts.filter({ $0 is ActiveAccount }) as! [ActiveAccount]
             expenseAccounts = accounts.filter({ $0 is ExpenseAccount }) as! [ExpenseAccount]
 
         } catch {
-            fatalError("Failed to fetch accounts: \(error)")
+            fatalError("Failed to fetch entities: \(error)")
         }
         
     }
