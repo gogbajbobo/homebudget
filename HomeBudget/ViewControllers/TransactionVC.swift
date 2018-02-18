@@ -15,6 +15,10 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     // MARK: Variables
     
     var accounts: [Account] = []
+    var incomeAccounts: [IncomeAccount] = []
+    var activeAccounts: [ActiveAccount] = []
+    var expenseAccounts: [ExpenseAccount] = []
+    
     
     // MARK: Storyboard outlets
     
@@ -73,7 +77,12 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         let context = appDelegate.persistentContainer.viewContext
         
         do {
+            
             accounts = try context.fetch(fetchRequest) as? [Account] ?? []
+            incomeAccounts = accounts.filter({ $0 is IncomeAccount }) as! [IncomeAccount]
+            activeAccounts = accounts.filter({ $0 is ActiveAccount }) as! [ActiveAccount]
+            expenseAccounts = accounts.filter({ $0 is ExpenseAccount }) as! [ExpenseAccount]
+
         } catch {
             fatalError("Failed to fetch accounts: \(error)")
         }
