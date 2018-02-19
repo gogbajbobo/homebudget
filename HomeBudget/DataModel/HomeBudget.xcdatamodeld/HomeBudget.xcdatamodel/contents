@@ -12,15 +12,16 @@
     <entity name="IncomeAccount" representedClassName=".IncomeAccount" parentEntity="Account" syncable="YES"/>
     <entity name="Transaction" representedClassName=".Transaction" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="value" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="fromValue" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="toValue" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <relationship name="fromAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="outTransactions" inverseEntity="Account" syncable="YES"/>
         <relationship name="toAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="inTransactions" inverseEntity="Account" syncable="YES"/>
     </entity>
     <elements>
-        <element name="IncomeAccount" positionX="-342" positionY="-72" width="128" height="43"/>
-        <element name="ExpenseAccount" positionX="79" positionY="-72" width="128" height="43"/>
-        <element name="ActiveAccount" positionX="-135" positionY="-72" width="128" height="43"/>
         <element name="Account" positionX="-137" positionY="-234" width="128" height="118"/>
-        <element name="Transaction" positionX="-135" positionY="-405" width="128" height="103"/>
+        <element name="ActiveAccount" positionX="-135" positionY="-72" width="128" height="43"/>
+        <element name="ExpenseAccount" positionX="79" positionY="-72" width="128" height="43"/>
+        <element name="IncomeAccount" positionX="-342" positionY="-72" width="128" height="43"/>
+        <element name="Transaction" positionX="-135" positionY="-405" width="128" height="118"/>
     </elements>
 </model>

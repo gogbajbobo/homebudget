@@ -81,7 +81,8 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         transaction.fromAccount = fromAccount
         transaction.toAccount = toAccount
-        transaction.value = NSDecimalNumber(value: (fromValueTextField.text?.doubleValue ?? 0.0))
+        transaction.fromValue = NSDecimalNumber(value: (fromValueTextField.text?.doubleValue ?? 0.0))
+        transaction.toValue = NSDecimalNumber(value: (toValueTextField.text?.doubleValue ?? 0.0))
         transaction.date = Date() as NSDate
         
         appDelegate.saveContext()
