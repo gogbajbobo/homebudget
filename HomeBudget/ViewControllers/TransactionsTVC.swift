@@ -62,7 +62,9 @@ class TransactionsTVC: FetchedResultsTVC {
             fatalError("Attempt to configure cell without a managed object")
         }
         
-        guard let fromAccount = transaction.fromAccount else {
+        guard
+            let fromAccount = transaction.fromAccount,
+            let toAccount = transaction.toAccount else {
             return cell
         }
         
@@ -70,14 +72,14 @@ class TransactionsTVC: FetchedResultsTVC {
         numberFormatter.numberStyle = .currency
         numberFormatter.maximumFractionDigits = 0
         numberFormatter.currencyCode = fromAccount.currency
+        numberFormatter.currencySymbol = fromAccount.currency == "RUB" ? "₽" : nil
         
-        if fromAccount.currency == "RUB" {
-            numberFormatter.currencySymbol = "₽"
-        }
-        
-        cell.textLabel?.text = (fromAccount.name ?? "") + " — " + (numberFormatter.string(from: transaction.value ?? 0) ?? "")
-        
-        cell.detailTextLabel?.text = transaction.toAccount?.name
+        cell.textLabel?.text = (fromAccount.name ?? "") + " — " + (numberFormatter.string(from: transaction.fromValue ?? 0) ?? "")
+
+        numberFormatter.currencyCode = toAccount.currency
+        numberFormatter.currencySymbol = toAccount.currency == "RUB" ? "₽" : nil
+
+        cell.detailTextLabel?.text = (numberFormatter.string(from: transaction.toValue ?? 0) ?? "")  + " — " + (toAccount.name ?? "")
 
         return cell
         
