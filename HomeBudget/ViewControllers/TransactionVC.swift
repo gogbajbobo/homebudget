@@ -20,17 +20,31 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     var incomeAccounts: [IncomeAccount] = []
     var activeAccounts: [ActiveAccount] = []
     var expenseAccounts: [ExpenseAccount] = []
+
+    var fromAccount: Account {
+        get {
+            return self.accountsForPicker(self.fromPicker)[self.fromPicker.selectedRow(inComponent: 0)]
+        }
+    }
+    var toAccount: Account {
+        get {
+            return self.accountsForPicker(self.toPicker)[self.toPicker.selectedRow(inComponent: 0)]
+        }
+    }
     
+    var fromValueTextField: UITextField = UITextField.init(frame: CGRect.zero)
+    var toValueTextField: UITextField = UITextField.init(frame: CGRect.zero)
+
     
     // MARK: Storyboard outlets
     
     @IBOutlet weak var fromSelector: UISegmentedControl!
     @IBOutlet weak var fromPicker: UIPickerView!
-    @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var textFieldsContainer: UIView!
     @IBOutlet weak var toSelector: UISegmentedControl!
     @IBOutlet weak var toPicker: UIPickerView!
     @IBOutlet weak var saveButton: UIButton!
-    
+
     @IBOutlet var keyboardToolbar: UIToolbar! // TODO: why not auto-weak?
     
     
@@ -53,24 +67,20 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         let transaction = NSEntityDescription.insertNewObject(forEntityName: String(describing: Transaction.self), into: context) as! Transaction
         
-        let fromAccount = accountsForPicker(fromPicker)[fromPicker.selectedRow(inComponent: 0)]
-        let toAccount = accountsForPicker(toPicker)[toPicker.selectedRow(inComponent: 0)]
-        
         transaction.fromAccount = fromAccount
         transaction.toAccount = toAccount
-        transaction.value = NSDecimalNumber(value: (amountTextField.text?.doubleValue ?? 0.0))
+        transaction.value = NSDecimalNumber(value: (fromValueTextField.text?.doubleValue ?? 0.0))
         transaction.date = Date() as NSDate
         
         appDelegate.saveContext()
         
         navigationController?.popViewController(animated: true)
 
-        
     }
     
     @IBAction func keyboardCancelPressed(_ sender: Any) {
         
-        amountTextField.text = ""
+        fromValueTextField.text = ""
         closeKeyboard()
         
     }
@@ -78,7 +88,6 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBAction func keyboardDonePressed(_ sender: Any) {
         closeKeyboard()
     }
-    
     
     
     // MARK: Lifecycle
@@ -96,6 +105,8 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     func customInit() {
         
+        getAccounts()
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard))
         // TODO: gesture not work if tap on selector/piker
         view.addGestureRecognizer(tap)
@@ -107,17 +118,64 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         toPicker.dataSource = self
         toPicker.delegate = self
-        
-        amountTextField.delegate = self
-        amountTextField.inputAccessoryView = keyboardToolbar
-        
-        getAccounts()
+
         refreshPickersData()
 
+        setupTextFields()
+        
     }
     
     
     // MARK: Methods
+    
+    func setupTextFields() {
+
+        [fromValueTextField, toValueTextField].forEach({
+            
+            $0.delegate = self
+            $0.inputAccessoryView = keyboardToolbar
+            $0.layer.borderWidth = 1
+            $0.placeholder = "placeholder"
+            
+        })
+        
+        refreshTextFieldsState(isInitial: true)
+        
+    }
+    
+    func refreshTextFieldsState(isInitial: Bool = false) {
+        
+        if !isInitial {
+
+            let accountsHadSameCurrency = toValueTextField.superview != textFieldsContainer
+            if accountsHadSameCurrency == accountsHaveSameCurrency() { return }
+
+        } else {
+            textFieldsContainer.addSubview(fromValueTextField)
+        }
+
+        if accountsHaveSameCurrency() {
+            
+            fromValueTextField.frame = textFieldsContainer.frame
+            toValueTextField.removeFromSuperview()
+            
+        } else {
+            
+            let padding: CGFloat = 20.0
+            let width = (textFieldsContainer.frame.size.width / 2) - padding
+            let height = textFieldsContainer.frame.size.height
+            
+            let fromFrame = CGRect(x: 0, y: 0, width: width, height: height)
+            let toFrame = CGRect(x: width + padding, y: 0, width: width, height: height)
+            
+            fromValueTextField.frame = fromFrame
+            toValueTextField.frame = toFrame
+            
+            textFieldsContainer.addSubview(toValueTextField)
+            
+        }
+    
+    }
 
     @objc func closeKeyboard() {
         view.endEditing(true)
@@ -155,12 +213,18 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         fromPicker.reloadAllComponents()
         toPicker.reloadAllComponents()
         
+        refreshTextFieldsState()
+
     }
     
     func isTransactionDataValid() -> Bool {
-        return amountTextField.text?.doubleValue != nil
+        return fromValueTextField.text?.doubleValue != nil
     }
     
+    func accountsHaveSameCurrency() -> Bool {
+        return fromAccount.currency == toAccount.currency
+    }
+
     
     // MARK: - UITextFieldDelegate
     
@@ -175,9 +239,9 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             
             valueIsValid |= updatedText == ""
             
-            amountTextField.layer.borderWidth = valueIsValid ? 0.0 : 1.0
-            amountTextField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
-            amountTextField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
+            fromValueTextField.layer.borderWidth = valueIsValid ? 0.0 : 1.0
+            fromValueTextField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
+            fromValueTextField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
             
         }
         return true
@@ -205,6 +269,10 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         return name + " " + currency
         
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        refreshTextFieldsState()
     }
     
     func accountsForPicker(_ picker: UIPickerView) -> [Account] {
