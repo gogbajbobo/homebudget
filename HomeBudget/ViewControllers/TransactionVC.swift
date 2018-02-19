@@ -150,6 +150,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             $0.placeholder = "pl"
             $0.textAlignment = NSTextAlignment.right
             $0.borderStyle = UITextBorderStyle.roundedRect
+            $0.clearButtonMode = UITextFieldViewMode.whileEditing
             
         })
         
