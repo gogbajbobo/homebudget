@@ -256,9 +256,9 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             
             valueIsValid |= updatedText == ""
             
-            fromValueTextField.layer.borderWidth = valueIsValid ? 0.0 : 1.0
-            fromValueTextField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
-            fromValueTextField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
+            textField.layer.borderWidth = valueIsValid ? 0.0 : 1.0
+            textField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
+            textField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
             
         }
         return true
