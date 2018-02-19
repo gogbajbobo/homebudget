@@ -52,7 +52,7 @@ extension NetworkService: NetworkServiceProtocol {
     
     
     func requestCurrencyRates(_ success: NetServSuccess?, _ failure: NetServFailure?, _ queue: DispatchQueue?) {
-        performRequest(url: URL.init(string: "https://api.fixer.io/latest")!, success, failure, queue)
+        performRequest(url: URL.init(string: "https://api.fixer.io/latest")!, success, failure, queue) // http://fixer.io
     }
     
     func performRequest(url: URL, _ success: NetServSuccess?, _ failure: NetServFailure?, _ queue: DispatchQueue?) {
