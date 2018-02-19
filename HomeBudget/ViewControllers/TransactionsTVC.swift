@@ -33,7 +33,7 @@ class TransactionsTVC: FetchedResultsTVC {
         guard let context = context else { return }
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: String(describing: Transaction.self))
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         
         frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                          managedObjectContext: context,
