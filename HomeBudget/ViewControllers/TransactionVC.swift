@@ -144,8 +144,10 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             
             $0.delegate = self
             $0.inputAccessoryView = keyboardToolbar
-            $0.layer.borderWidth = 1
-            $0.placeholder = "placeholder"
+            $0.keyboardType = UIKeyboardType.decimalPad
+            $0.placeholder = "pl"
+            $0.textAlignment = NSTextAlignment.right
+            $0.borderStyle = UITextBorderStyle.roundedRect
             
         })
         
