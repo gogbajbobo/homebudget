@@ -188,7 +188,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
     
     }
-
+    
     @objc func closeKeyboard() {
         view.endEditing(true)
     }
@@ -251,18 +251,25 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             
             let updatedText = text.replacingCharacters(in: textRange, with: string)
             
-            var valueIsValid = updatedText.doubleValue != nil
-            saveButton.isEnabled = valueIsValid
-            
-            valueIsValid |= updatedText == ""
+            var valueIsValid = textFieldIsValid(text: updatedText)
             
             textField.layer.borderWidth = valueIsValid ? 0.0 : 1.0
             textField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
             textField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
+
+            let otherFieldText = textField == fromValueTextField ? toValueTextField.text : fromValueTextField.text
+            valueIsValid &= textFieldIsValid(text: otherFieldText)
+            valueIsValid &= (updatedText != "" || otherFieldText != "")
+            
+            saveButton.isEnabled = valueIsValid
             
         }
         return true
         
+    }
+    
+    func textFieldIsValid(text: String?) -> Bool {
+        return text?.doubleValue != nil || text == ""
     }
 
 
