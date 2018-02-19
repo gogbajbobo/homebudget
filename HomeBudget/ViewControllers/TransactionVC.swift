@@ -44,7 +44,9 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     var fromValueTextField = UITextField.init(frame: CGRect.zero)
     var toValueTextField = UITextField.init(frame: CGRect.zero)
-
+    var activeTextField: UITextField?
+    var activeTextFieldUnchangedText: String?
+    
     
     // MARK: Storyboard outlets
     
@@ -90,7 +92,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     @IBAction func keyboardCancelPressed(_ sender: Any) {
         
-        fromValueTextField.text = ""
+        activeTextField?.text = activeTextFieldUnchangedText
         closeKeyboard()
         
     }
@@ -244,6 +246,13 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
 
     
     // MARK: - UITextFieldDelegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        activeTextField = textField
+        activeTextFieldUnchangedText = textField.text
+        
+    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
