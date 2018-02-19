@@ -16,24 +16,34 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     var frc: NSFetchedResultsController<Account>?
 
-    var accounts: [Account] = []
-    var incomeAccounts: [IncomeAccount] = []
-    var activeAccounts: [ActiveAccount] = []
-    var expenseAccounts: [ExpenseAccount] = []
+    var accounts: [Account]?
+    var incomeAccounts: [IncomeAccount]?
+    var activeAccounts: [ActiveAccount]?
+    var expenseAccounts: [ExpenseAccount]?
 
-    var fromAccount: Account {
+    var fromAccount: Account? {
         get {
-            return self.accountsForPicker(self.fromPicker)[self.fromPicker.selectedRow(inComponent: 0)]
+            
+            if let accounts = self.accountsForPicker(self.fromPicker), accounts.count > 0 {
+                return accounts[self.fromPicker.selectedRow(inComponent: 0)]
+            }
+            return nil
+            
         }
     }
-    var toAccount: Account {
+    var toAccount: Account? {
         get {
-            return self.accountsForPicker(self.toPicker)[self.toPicker.selectedRow(inComponent: 0)]
+            
+            if let accounts = self.accountsForPicker(self.toPicker) {
+                return accounts[self.toPicker.selectedRow(inComponent: 0)]
+            }
+            return nil
+        
         }
     }
     
-    var fromValueTextField: UITextField = UITextField.init(frame: CGRect.zero)
-    var toValueTextField: UITextField = UITextField.init(frame: CGRect.zero)
+    var fromValueTextField = UITextField.init(frame: CGRect.zero)
+    var toValueTextField = UITextField.init(frame: CGRect.zero)
 
     
     // MARK: Storyboard outlets
@@ -48,7 +58,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet var keyboardToolbar: UIToolbar! // TODO: why not auto-weak?
     
     
-    // MARK: Storyboard actions
+    // MARK: - Storyboard actions
     
     @IBAction func fromSelectorChanged(_ sender: Any) {
         refreshPickersData()
@@ -90,7 +100,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     
-    // MARK: Lifecycle
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         
@@ -113,20 +123,20 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
 
         saveButton.isEnabled = false
         
-        fromPicker.dataSource = self
-        fromPicker.delegate = self
-        
-        toPicker.dataSource = self
-        toPicker.delegate = self
+        [fromPicker, toPicker].forEach({
+            
+            $0?.delegate = self
+            $0?.dataSource = self
+            $0?.reloadAllComponents()
 
-        refreshPickersData()
+        })
 
         setupTextFields()
         
     }
     
     
-    // MARK: Methods
+    // MARK: - Methods
     
     func setupTextFields() {
 
@@ -156,7 +166,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
 
         if accountsHaveSameCurrency() {
             
-            fromValueTextField.frame = textFieldsContainer.frame
+            fromValueTextField.frame = textFieldsContainer.bounds
             toValueTextField.removeFromSuperview()
             
         } else {
@@ -196,23 +206,28 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         frc?.delegate = self
         
         do {
+            
             try frc?.performFetch()
+            refillAccountsArray()
+            
         } catch {
             fatalError("Failed to fetch entities: \(error)")
         }
         
     }
     
-    func refreshPickersData() {
+    func refillAccountsArray() {
         
         accounts = frc?.fetchedObjects ?? []
-        incomeAccounts = accounts.filter({ $0 is IncomeAccount }) as! [IncomeAccount]
-        activeAccounts = accounts.filter({ $0 is ActiveAccount }) as! [ActiveAccount]
-        expenseAccounts = accounts.filter({ $0 is ExpenseAccount }) as! [ExpenseAccount]
+        incomeAccounts = accounts?.filter({ $0 is IncomeAccount }) as? [IncomeAccount]
+        activeAccounts = accounts?.filter({ $0 is ActiveAccount }) as? [ActiveAccount]
+        expenseAccounts = accounts?.filter({ $0 is ExpenseAccount }) as? [ExpenseAccount]
 
-        fromPicker.reloadAllComponents()
-        toPicker.reloadAllComponents()
+    }
+    
+    func refreshPickersData() {
         
+        [fromPicker, toPicker].forEach({ $0?.reloadAllComponents() })
         refreshTextFieldsState()
 
     }
@@ -222,7 +237,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func accountsHaveSameCurrency() -> Bool {
-        return fromAccount.currency == toAccount.currency
+        return fromAccount?.currency == toAccount?.currency
     }
 
     
@@ -256,16 +271,16 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return accountsForPicker(pickerView).count
+        return accountsForPicker(pickerView)?.count ?? 0
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        let account = accountsForPicker(pickerView)[row]
+        let account = accountsForPicker(pickerView)?[row]
         
         guard
-            let name = account.name,
-            let currency = account.currency else { return nil }
+            let name = account?.name,
+            let currency = account?.currency else { return nil }
         
         return name + " " + currency
         
@@ -275,7 +290,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         refreshTextFieldsState()
     }
     
-    func accountsForPicker(_ picker: UIPickerView) -> [Account] {
+    func accountsForPicker(_ picker: UIPickerView) -> [Account]? {
         
         if picker == fromPicker {
             
@@ -291,7 +306,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
 
         }
         
-        return []
+        return nil
 
     }
 
@@ -299,7 +314,10 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     // MARK: - NSFetchedResultsControllerDelegate
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+
+        refillAccountsArray()
         refreshPickersData()
+        
     }
     
 }
