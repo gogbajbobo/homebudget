@@ -172,7 +172,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         } else {
             
             let padding: CGFloat = 20.0
-            let width = (textFieldsContainer.frame.size.width / 2) - padding
+            let width = (textFieldsContainer.frame.size.width - padding) / 2
             let height = textFieldsContainer.frame.size.height
             
             let fromFrame = CGRect(x: 0, y: 0, width: width, height: height)
