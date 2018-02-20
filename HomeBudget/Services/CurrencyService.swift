@@ -107,17 +107,11 @@ extension CurrencyService: CurrencyServiceProtocol {
 
     func getRate(for currency: String?) -> Double? {
         
-        if
-            let rate = currRatesArray?.filter({ $0.key == currency }).first?.value,
-            let rateString = rate as? String,
-            let rateDouble = Double(rateString) {
+        let rate = currRatesArray?.filter({ $0.key == currency }).first?.value
+        let rateNumber = rate as? NSNumber
             
-            return rateDouble
-            
-        }
-        
-        return nil
-        
+        return rateNumber?.doubleValue
+
     }
 
 }
