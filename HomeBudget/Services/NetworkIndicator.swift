@@ -26,7 +26,7 @@ class NetworkIndicator: NSObject {
             let senderCount = (shared.applicants[sender] ?? 0) + 1
             shared.applicants[sender] = senderCount
             
-            print(sender, " ask to start network indicator")
+            print(sender, "ask to start network indicator")
             
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
@@ -50,7 +50,7 @@ class NetworkIndicator: NSObject {
                 shared.applicants.removeValue(forKey: sender)
             }
             
-            print(sender, " ask to stop network indicator")
+            print(sender, "ask to stop network indicator")
             
             var totalCount = 0
             
