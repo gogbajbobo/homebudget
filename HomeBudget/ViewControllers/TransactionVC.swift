@@ -148,7 +148,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             $0.delegate = self
             $0.inputAccessoryView = keyboardToolbar
             $0.keyboardType = UIKeyboardType.decimalPad
-            $0.placeholder = "pl"
+            $0.placeholder = "sum"
             $0.textAlignment = NSTextAlignment.right
             $0.borderStyle = UITextBorderStyle.roundedRect
             $0.clearButtonMode = UITextFieldViewMode.whileEditing
