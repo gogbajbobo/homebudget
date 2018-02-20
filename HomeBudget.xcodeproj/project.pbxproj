@@ -36,6 +36,7 @@
 		2CE2F951203972DB00283C11 /* TransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F950203972DB00283C11 /* TransactionVC.swift */; };
 		2CE2F9542039C00E00283C11 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F9532039C00E00283C11 /* String+extension.swift */; };
 		2CE2F9562039C73500283C11 /* Operators+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F9552039C73500283C11 /* Operators+extension.swift */; };
+		2CE2F95A203C1B5A00283C11 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F959203C1B5A00283C11 /* CurrencyService.swift */; };
 		2CE2F95C203C23BA00283C11 /* NetworkResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F95B203C23BA00283C11 /* NetworkResponseParser.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,7 @@
 		2CE2F950203972DB00283C11 /* TransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionVC.swift; sourceTree = "<group>"; };
 		2CE2F9532039C00E00283C11 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 		2CE2F9552039C73500283C11 /* Operators+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Operators+extension.swift"; sourceTree = "<group>"; };
+		2CE2F959203C1B5A00283C11 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		2CE2F95B203C23BA00283C11 /* NetworkResponseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,6 +226,7 @@
 				2CE2F95B203C23BA00283C11 /* NetworkResponseParser.swift */,
 				2C54B108203723AB00BDD12E /* JSONHandler.swift */,
 				2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */,
+				2CE2F959203C1B5A00283C11 /* CurrencyService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				2CE2F9542039C00E00283C11 /* String+extension.swift in Sources */,
 				2C54B0F92036DFAE00BDD12E /* AccountsTVC.swift in Sources */,
 				2C54B0FF20371DEF00BDD12E /* CurrenciesTVC.swift in Sources */,
+				2CE2F95A203C1B5A00283C11 /* CurrencyService.swift in Sources */,
 				2CE2F951203972DB00283C11 /* TransactionVC.swift in Sources */,
 				2C54B10E20385B7100BDD12E /* NetworkIndicator.swift in Sources */,
 				2C54B0E42036D7E900BDD12E /* Account+CoreDataClass.swift in Sources */,
