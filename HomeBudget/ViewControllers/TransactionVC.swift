@@ -241,6 +241,22 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         return textField == fromValueTextField ? toValueTextField : fromValueTextField
     }
     
+    func validateValue(textField: UITextField, updatedText: String) {
+        
+        var valueIsValid = textFieldIsValid(text: updatedText)
+        
+        textField.layer.borderWidth = valueIsValid ? 0.0 : 1.0
+        textField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
+        textField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
+        
+        let otherFieldText = oppositeTextField(for: textField).text
+        valueIsValid &= textFieldIsValid(text: otherFieldText)
+        valueIsValid &= (updatedText != "" || otherFieldText != "")
+        
+        saveButton.isEnabled = valueIsValid
+
+    }
+    
     
     // MARK: - UITextFieldDelegate
     
@@ -256,18 +272,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         if let text = textField.text, let textRange = Range(range, in: text) {
             
             let updatedText = text.replacingCharacters(in: textRange, with: string)
-            
-            var valueIsValid = textFieldIsValid(text: updatedText)
-            
-            textField.layer.borderWidth = valueIsValid ? 0.0 : 1.0
-            textField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
-            textField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
-
-            let otherFieldText = textField == fromValueTextField ? toValueTextField.text : fromValueTextField.text
-            valueIsValid &= textFieldIsValid(text: otherFieldText)
-            valueIsValid &= (updatedText != "" || otherFieldText != "")
-            
-            saveButton.isEnabled = valueIsValid
+            validateValue(textField: textField, updatedText: updatedText)
             
         }
         return true
