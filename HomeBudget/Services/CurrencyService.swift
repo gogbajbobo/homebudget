@@ -25,6 +25,8 @@ protocol CurrencyServiceProtocol {
     func getCurrencyRatesDate() -> String?
     func getCurrencyRatesBase() -> String?
     
+    func getRate(for currency: String?) -> Double?
+    
 }
 
 class CurrencyService: NSObject {
@@ -36,19 +38,26 @@ class CurrencyService: NSObject {
         
     }(DateFormatter())
     
+    var storedCurrRates: [String : Any]? {
+        get {
+            return UserDefaults.standard.dictionary(forKey: "currRates")
+        }
+    }
+    
+    var currRatesArray: [(key: String, value: Any)]? = nil
+    
     func checkStoresCurrencyRates(completionHandler: @escaping ([(String, Any)]?, Error?) -> Void) {
         
         guard
-            let currRates = UserDefaults.standard.dictionary(forKey: "currRates"),
-            dateFormatter.string(from: Date()) == currRates["saveDate"] as? String,
-            var rates = currRates["rates"] as? Dictionary<String, Any>,
-            let base = currRates["base"] as? String else {
+            dateFormatter.string(from: Date()) == storedCurrRates?["saveDate"] as? String,
+            var rates = storedCurrRates?["rates"] as? [String : Any],
+            let base = storedCurrRates?["base"] as? String else {
                 return requestCurrencyRates(completionHandler: completionHandler)
         }
         
         rates[base] = 1
-        let returnValues = rates.sorted(by: { $0.0 < $1.0 })
-        completionHandler(returnValues, nil)
+        currRatesArray = rates.sorted(by: { $0.key < $1.key })
+        completionHandler(currRatesArray, nil)
 
     }
     
@@ -82,21 +91,26 @@ extension CurrencyService: CurrencyServiceProtocol {
     }
     
     func getCurrencyRatesDate() -> String? {
-        
-        guard let currRates = UserDefaults.standard.dictionary(forKey: "currRates") else {
-            return nil
-        }
-        return currRates["date"] as? String
-
+        return storedCurrRates?["date"] as? String
     }
     
     func getCurrencyRatesBase() -> String? {
+        return storedCurrRates?["base"] as? String
+    }
 
-        guard let currRates = UserDefaults.standard.dictionary(forKey: "currRates") else {
-            return nil
+    func getRate(for currency: String?) -> Double? {
+        
+        if
+            let rate = currRatesArray?.filter({ $0.key == currency }).first?.value,
+            let rateString = rate as? String,
+            let rateDouble = Double(rateString) {
+            
+            return rateDouble
+            
         }
-        return currRates["base"] as? String
-
+        
+        return nil
+        
     }
 
 }
