@@ -123,6 +123,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     func customInit() {
         
         getAccounts()
+        updateRates()
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard))
         // TODO: gesture not work if tap on selector/piker
@@ -273,6 +274,29 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
     }
     
+    func rateForTextField(_ textField: UITextField) -> Double? {
+        
+        guard
+            let toCurrencyRate = toCurrencyRate,
+            let fromCurrencyRate = fromCurrencyRate else {
+            return nil
+        }
+        
+        switch textField {
+            
+        case fromValueTextField:
+            return fromCurrencyRate / toCurrencyRate
+
+        case toValueTextField:
+            return toCurrencyRate / fromCurrencyRate
+            
+        default:
+            return nil
+            
+        }
+
+    }
+    
     func validateValue(textField: UITextField, updatedText: String) {
         
         var valueIsValid = textFieldIsValid(text: updatedText)
@@ -281,15 +305,19 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         textField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
         textField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
         
-        let otherFieldText = oppositeTextField(for: textField).text
-        valueIsValid &= textFieldIsValid(text: otherFieldText)
-        valueIsValid &= (updatedText != "" || otherFieldText != "")
+        let otherTextField = oppositeTextField(for: textField)
+        valueIsValid &= textFieldIsValid(text: otherTextField.text)
+        valueIsValid &= (updatedText != "" || otherTextField.text != "")
         
         saveButton.isEnabled = valueIsValid
 
-        if !accountsHaveSameCurrency() {
+        if valueIsValid && !accountsHaveSameCurrency() {
             
+            if let calcRate = rateForTextField(otherTextField), let doubleValue = updatedText.doubleValue {
             
+                otherTextField.placeholder = String(calcRate * doubleValue)
+
+            }
             
         }
         
