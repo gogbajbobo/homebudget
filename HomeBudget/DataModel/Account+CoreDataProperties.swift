@@ -2,7 +2,7 @@
 //  Account+CoreDataProperties.swift
 //  HomeBudget
 //
-//  Created by Maxim Grigoriev on 16/02/2018.
+//  Created by Maxim Grigoriev on 20/02/2018.
 //  Copyright © 2018 Maxim Grigoriev. All rights reserved.
 //
 //
@@ -17,28 +17,11 @@ extension Account {
         return NSFetchRequest<Account>(entityName: "Account")
     }
 
-    @NSManaged public var name: String?
     @NSManaged public var currency: String?
+    @NSManaged public var name: String?
     @NSManaged public var value: NSDecimalNumber?
-    @NSManaged public var outTransactions: NSSet?
     @NSManaged public var inTransactions: NSSet?
-
-}
-
-// MARK: Generated accessors for outTransactions
-extension Account {
-
-    @objc(addOutTransactionsObject:)
-    @NSManaged public func addToOutTransactions(_ value: Transaction)
-
-    @objc(removeOutTransactionsObject:)
-    @NSManaged public func removeFromOutTransactions(_ value: Transaction)
-
-    @objc(addOutTransactions:)
-    @NSManaged public func addToOutTransactions(_ values: NSSet)
-
-    @objc(removeOutTransactions:)
-    @NSManaged public func removeFromOutTransactions(_ values: NSSet)
+    @NSManaged public var outTransactions: NSSet?
 
 }
 
@@ -56,5 +39,22 @@ extension Account {
 
     @objc(removeInTransactions:)
     @NSManaged public func removeFromInTransactions(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for outTransactions
+extension Account {
+
+    @objc(addOutTransactionsObject:)
+    @NSManaged public func addToOutTransactions(_ value: Transaction)
+
+    @objc(removeOutTransactionsObject:)
+    @NSManaged public func removeFromOutTransactions(_ value: Transaction)
+
+    @objc(addOutTransactions:)
+    @NSManaged public func addToOutTransactions(_ values: NSSet)
+
+    @objc(removeOutTransactions:)
+    @NSManaged public func removeFromOutTransactions(_ values: NSSet)
 
 }
