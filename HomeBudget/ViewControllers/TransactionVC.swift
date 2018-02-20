@@ -257,6 +257,10 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
 
     }
     
+    func textFieldIsValid(text: String?) -> Bool {
+        return text?.doubleValue != nil || text == ""
+    }
+
     
     // MARK: - UITextFieldDelegate
     
@@ -279,10 +283,13 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
     }
     
-    func textFieldIsValid(text: String?) -> Bool {
-        return text?.doubleValue != nil || text == ""
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        
+        validateValue(textField: textField, updatedText: "")
+        return true
+        
     }
-
+    
 
     // MARK: - UIPickerViewDataSource, UIPickerViewDelegate
     
