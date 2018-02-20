@@ -51,6 +51,17 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     var activeTextField: UITextField?
     var activeTextFieldUnchangedText: String?
     
+    lazy var numberFormatter: NumberFormatter = {
+        
+        let nf = NumberFormatter()
+        
+        nf.numberStyle = .currency
+        nf.maximumFractionDigits = 2
+
+        return nf
+        
+    }()
+
     
     // MARK: Storyboard outlets
     
@@ -314,8 +325,10 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         if valueIsValid && !accountsHaveSameCurrency() {
             
             if let calcRate = rateForTextField(otherTextField), let doubleValue = updatedText.doubleValue {
-            
-                otherTextField.placeholder = String(calcRate * doubleValue)
+                
+                let currencyCode = currencyForTextField(otherTextField)
+                numberFormatter.currencySymbol = currencyCode == "RUB" ? "₽" : currencyCode
+                otherTextField.placeholder = numberFormatter.string(from: NSNumber(value: calcRate * doubleValue))
 
             }
             
