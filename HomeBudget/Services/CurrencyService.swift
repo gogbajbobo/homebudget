@@ -22,6 +22,9 @@ protocol CurrencyServiceProtocol {
     func getCurrencyRates(completionHandler: @escaping ([(String, Any)]?, Error?) -> Void)
     func requestCurrencyRates(completionHandler: @escaping ([(String, Any)]?, Error?) -> Void)
     
+    func getCurrencyRatesDate() -> String?
+    func getCurrencyRatesBase() -> String?
+    
 }
 
 class CurrencyService: NSObject {
@@ -76,6 +79,24 @@ extension CurrencyService: CurrencyServiceProtocol {
             
         }
         
+    }
+    
+    func getCurrencyRatesDate() -> String? {
+        
+        guard let currRates = UserDefaults.standard.dictionary(forKey: "currRates") else {
+            return nil
+        }
+        return currRates["date"] as? String
+
+    }
+    
+    func getCurrencyRatesBase() -> String? {
+
+        guard let currRates = UserDefaults.standard.dictionary(forKey: "currRates") else {
+            return nil
+        }
+        return currRates["base"] as? String
+
     }
 
 }

@@ -86,19 +86,18 @@ class CurrenciesTVC: UITableViewController {
         
     func setupTitle() {
         
-        guard let currRates = UserDefaults.standard.dictionary(forKey: "currRates") else { return }
+        guard var titleText = CurrencyService().getCurrencyRatesDate() else { return }
 
-        var titleText = currRates["date"] as? String ?? ""
         defer { navigationItem.title = titleText }
         
         guard let currName = selectedCurrency?.0 else {
 
-            guard let base = currRates["base"] as? String else { return }
-            return titleText = titleText + " / " + base
+            guard let base = CurrencyService().getCurrencyRatesBase() else { return }
+            return titleText += " / " + base
             
         }
 
-        titleText = titleText + " / " + currName
+        titleText += " / " + currName
 
     }
 
