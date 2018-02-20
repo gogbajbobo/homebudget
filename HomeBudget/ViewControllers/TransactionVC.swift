@@ -42,8 +42,9 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
     }
     
-    var fromValueTextField = UITextField.init(frame: CGRect.zero)
-    var toValueTextField = UITextField.init(frame: CGRect.zero)
+    var fromValueTextField = UITextField(frame: CGRect.zero)
+    var toValueTextField = UITextField(frame: CGRect.zero)
+    
     var activeTextField: UITextField?
     var activeTextFieldUnchangedText: String?
     
