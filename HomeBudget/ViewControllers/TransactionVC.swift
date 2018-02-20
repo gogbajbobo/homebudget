@@ -237,6 +237,10 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         return fromAccount?.currency == toAccount?.currency
     }
 
+    func oppositeTextField(for textField: UITextField) -> UITextField {
+        return textField == fromValueTextField ? toValueTextField : fromValueTextField
+    }
+    
     
     // MARK: - UITextFieldDelegate
     
