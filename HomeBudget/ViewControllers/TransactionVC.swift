@@ -199,16 +199,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     func getAccounts() {
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-
-        let fetchRequest = NSFetchRequest<Account>.init(entityName: String(describing: Account.self))
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        
-        frc = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                         managedObjectContext: context,
-                                         sectionNameKeyPath: nil,
-                                         cacheName: nil)
+        frc = Account.fetchedResultsController()
         frc?.delegate = self
         
         do {
