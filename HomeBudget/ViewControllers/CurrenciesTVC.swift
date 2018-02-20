@@ -13,15 +13,18 @@ class CurrenciesTVC: UITableViewController {
     var ratesArray: [(key: String, value: Any)]?
     var selectedCurrency: (String, Int)?
     
-    lazy var dateFormatter: DateFormatter = {
-
-        $0.dateFormat = "yyyy-MM-dd"
-        return $0
-        
-    }(DateFormatter())
     
+    // MARK: - Storyboard outlets
+
     @IBOutlet weak var refreshButton: UIBarButtonItem!
     
+    
+    // MARK: - Storyboard actions
+    
+    @IBAction func refreshButtonPressed(_ sender: Any) {
+        requestCurrencyRates()
+    }
+
     
     // MARK: Lifecycle
     
@@ -37,30 +40,50 @@ class CurrenciesTVC: UITableViewController {
     }
 
     func customInit() {
-        checkStoredRates()
+        getCurrencyRates()
     }
     
-    
+
     // MARK: - Methods
     
-    func checkStoredRates() {
+    func getCurrencyRates() {
         
-        guard
-            let currRates = UserDefaults.standard.dictionary(forKey: "currRates"),
-            dateFormatter.string(from: Date()) == currRates["saveDate"] as? String,
-            var rates = currRates["rates"] as? Dictionary<String, Any>,
-            let base = currRates["base"] as? String else {
-                return getCurrencyRates()
+        CurrencyService().getCurrencyRates { (values, error) in
+            self.currencyRatesCompletionHandler(values: values, error: error)
         }
-        
-        rates[base] = 1
-        ratesArray = rates.sorted(by: { $0.0 < $1.0 })
-        
-        setupTitle()
-        tableView.reloadData()
         
     }
     
+    func requestCurrencyRates() {
+        
+        CurrencyService().requestCurrencyRates { (values, error) in
+            self.currencyRatesCompletionHandler(values: values, error: error)
+        }
+        
+    }
+    
+    func currencyRatesCompletionHandler(values: [(String, Any)]?, error: Error?) -> Void {
+        
+        if let error = error {
+            print(error.localizedDescription)
+        } else {
+            self.updateTableWithValues(values: values)
+        }
+        
+    }
+
+    func updateTableWithValues(values: [(key: String, value: Any)]?) {
+        
+        DispatchQueue.main.async {
+            
+            self.ratesArray = values
+            self.setupTitle()
+            self.tableView.reloadData()
+            
+        }
+
+    }
+        
     func setupTitle() {
         
         guard let currRates = UserDefaults.standard.dictionary(forKey: "currRates") else { return }
@@ -79,43 +102,6 @@ class CurrenciesTVC: UITableViewController {
 
     }
 
-    func getCurrencyRates() {
-        NetworkService().requestCurrencyRates(successCallback, failureCallback, nil)
-    }
-    
-    func successCallback(data: Any) {
-        
-//        DispatchQueue.main.async {
-        
-            print(data)
-
-            if var data = data as? Dictionary<String, Any> {
-
-                data["saveDate"] = self.dateFormatter.string(from: Date())
-                
-                UserDefaults.standard.set(data, forKey: "currRates")
-                UserDefaults.standard.synchronize()
-                
-                self.checkStoredRates()
-                
-            }
-            
-//        }
-        
-    }
-
-    func failureCallback(data: Any?, error: Error?, code: Int?) {
-
-//        DispatchQueue.main.async {
-//    
-//        }
-
-    }
-
-    @IBAction func refreshButtonPressed(_ sender: Any) {
-        getCurrencyRates()
-    }
-    
     
     // MARK: - Table view data source
 
