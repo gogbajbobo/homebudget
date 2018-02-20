@@ -46,6 +46,13 @@ class CurrencyService: NSObject {
     
     var currRatesArray: [(key: String, value: Any)]? = nil
     
+    override init() {
+        
+        super.init()
+        self.checkStoresCurrencyRates { (_, _) in }
+        
+    }
+    
     func checkStoresCurrencyRates(completionHandler: @escaping ([(String, Any)]?, Error?) -> Void) {
         
         guard
