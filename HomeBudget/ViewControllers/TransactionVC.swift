@@ -45,6 +45,9 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     var fromValueTextField = UITextField(frame: CGRect.zero)
     var toValueTextField = UITextField(frame: CGRect.zero)
     
+    var fromCurrencyRate: Double?
+    var toCurrencyRate: Double?
+    
     var activeTextField: UITextField?
     var activeTextFieldUnchangedText: String?
     
@@ -194,6 +197,13 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     }
     
+    func updateRates() {
+        
+        fromCurrencyRate = CurrencyService().getRate(for: fromAccount?.currency)
+        toCurrencyRate = CurrencyService().getRate(for: toAccount?.currency)
+        
+    }
+    
     @objc func closeKeyboard() {
         view.endEditing(true)
     }
@@ -238,8 +248,29 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         return fromAccount?.currency == toAccount?.currency
     }
 
+    func textFieldIsValid(text: String?) -> Bool {
+        return text?.doubleValue != nil || text == ""
+    }
+
     func oppositeTextField(for textField: UITextField) -> UITextField {
         return textField == fromValueTextField ? toValueTextField : fromValueTextField
+    }
+    
+    func currencyForTextField(_ textField: UITextField) -> String? {
+        
+        switch textField {
+            
+        case fromValueTextField:
+            return fromAccount?.currency
+            
+        case toValueTextField:
+            return toAccount?.currency
+            
+        default:
+            return nil
+            
+        }
+        
     }
     
     func validateValue(textField: UITextField, updatedText: String) {
@@ -256,12 +287,14 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         saveButton.isEnabled = valueIsValid
 
+        if !accountsHaveSameCurrency() {
+            
+            
+            
+        }
+        
     }
     
-    func textFieldIsValid(text: String?) -> Bool {
-        return text?.doubleValue != nil || text == ""
-    }
-
     
     // MARK: - UITextFieldDelegate
     
@@ -315,7 +348,10 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        updateRates()
         refreshTextFieldsState()
+
     }
     
     func accountsForPicker(_ picker: UIPickerView) -> [Account]? {
