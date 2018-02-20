@@ -253,7 +253,7 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func isTransactionDataValid() -> Bool {
-        return fromValueTextField.text?.doubleValue != nil
+        return fromValueTextField.text?.doubleValue != nil || toValueTextField.text?.doubleValue != nil
     }
     
     func accountsHaveSameCurrency() -> Bool {
