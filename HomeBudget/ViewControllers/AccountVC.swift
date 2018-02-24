@@ -21,6 +21,10 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDeleg
     @IBOutlet weak var typeSelector: UISegmentedControl!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var currencyLabel: UILabel!
+    @IBOutlet weak var initialValueTextField: UITextField!
+    
+    @IBOutlet var keyboardToolbar: UIToolbar!
+    
     
     var selectedCurrency: String = "RUB"
     
@@ -60,6 +64,14 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDeleg
         
     }
     
+    @IBAction func keyboardCancelPressed(_ sender: Any) {
+        closeKeyboard()
+    }
+    
+    @IBAction func keyboardDonePressed(_ sender: Any) {
+        closeKeyboard()
+    }
+    
     
     // MARK: - Lifecycle
 
@@ -81,6 +93,10 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDeleg
         view.addGestureRecognizer(tap)
         
         nameTextField.delegate = self
+        
+        initialValueTextField.delegate = self
+        initialValueTextField.inputAccessoryView = keyboardToolbar
+        
         saveButton.isEnabled = false
         
         currencyLabel.text = selectedCurrency
@@ -99,12 +115,21 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDeleg
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if let text = textField.text, let textRange = Range(range, in: text) {
-            
-            let updatedText = text.replacingCharacters(in: textRange, with: string)
-            saveButton.isEnabled = updatedText.trimmingCharacters(in: .whitespacesAndNewlines).count > 0
+        if textField == nameTextField {
+
+            if let text = textField.text, let textRange = Range(range, in: text) {
+                
+                let updatedText = text.replacingCharacters(in: textRange, with: string)
+                saveButton.isEnabled = updatedText.trimmingCharacters(in: .whitespacesAndNewlines).count > 0
+                
+            }
 
         }
+
+        if textField == initialValueTextField {
+            
+        }
+        
         return true
         
     }
