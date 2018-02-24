@@ -300,15 +300,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RlD-dh-WoP">
-                                <rect key="frame" x="16" y="253" width="132" height="21"/>
+                                <rect key="frame" x="16" y="253" width="111" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="It3-M9-aC2">
-                                <rect key="frame" x="156" y="248" width="148" height="30"/>
+                                <rect key="frame" x="135" y="248" width="169" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="148" id="jzd-LJ-aeV"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="148" id="jzd-LJ-aeV"/>
                                 </constraints>
                                 <state key="normal" title="Select"/>
                                 <connections>
