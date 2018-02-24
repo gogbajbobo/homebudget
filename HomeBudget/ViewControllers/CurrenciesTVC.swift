@@ -8,10 +8,18 @@
 
 import UIKit
 
+enum CurrenciesTVCMode {
+    case gettingRates
+    case selectingCurrency
+}
+
 class CurrenciesTVC: UITableViewController {
 
+    var mode: CurrenciesTVCMode = .gettingRates
+    
     var ratesArray: [(key: String, value: Any)]?
     var selectedCurrency: (String, Int)?
+    var selectingParent: currencySelectorDelegate?
     
     
     // MARK: - Storyboard outlets
@@ -142,6 +150,15 @@ class CurrenciesTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard let name = getCurrencyName(atIndex: indexPath.row) else { return }
+        
+        if mode == .selectingCurrency {
+            
+            selectingParent?.currencySelected(name)
+            navigationController?.popViewController(animated: true)
+            
+            return
+            
+        }
         
         selectedCurrency = (name, indexPath.row)
 

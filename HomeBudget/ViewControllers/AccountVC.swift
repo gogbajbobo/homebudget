@@ -9,12 +9,21 @@
 import UIKit
 import CoreData
 
+protocol currencySelectorDelegate {
+    
+    func currencySelected(_ currencyName: String)
+    
+}
+
 class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var typeSelector: UISegmentedControl!
     @IBOutlet weak var currencyPicker: UIPickerView!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var currencyLabel: UILabel!
+    
+    var selectedCurrency: String = "RUB"
     
     let currencies = ["AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "EUR", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "USD", "ZAR"]
     
@@ -43,7 +52,7 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
             let account: Account = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Account
 
             account.name = nameTextField.text
-            account.currency = currencies[self.currencyPicker.selectedRow(inComponent: 0)]
+            account.currency = selectedCurrency// currencies[self.currencyPicker.selectedRow(inComponent: 0)]
 
         }
         
@@ -75,6 +84,8 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
         
         nameTextField.delegate = self
         saveButton.isEnabled = false
+        
+        currencyLabel.text = selectedCurrency
         
         currencyPicker.dataSource = self
         currencyPicker.delegate = self
@@ -134,6 +145,31 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return true
+    }
+
+    
+     // MARK: - Navigation
+     
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "selectCurrency", let dc = segue.destination as? CurrenciesTVC {
+            
+            dc.mode = .selectingCurrency
+            dc.selectingParent = self
+            
+        }
+        
+    }
+
+}
+
+extension AccountVC: currencySelectorDelegate {
+    
+    func currencySelected(_ currencyName: String) {
+        
+        selectedCurrency = currencyName
+        currencyLabel.text = selectedCurrency
+        
     }
     
 }

@@ -312,6 +312,21 @@
                                     <action selector="saveButtonPressed:" destination="u5G-XW-2mP" eventType="touchUpInside" id="wb4-7y-o0v"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Currency label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RlD-dh-WoP">
+                                <rect key="frame" x="16" y="389" width="132" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="It3-M9-aC2">
+                                <rect key="frame" x="156" y="384" width="148" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Select"/>
+                                <connections>
+                                    <segue destination="px8-jG-t7S" kind="show" identifier="selectCurrency" id="O9O-Xb-hio"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -340,6 +355,7 @@
                         <viewLayoutGuide key="safeArea" id="1fl-we-A9n"/>
                     </view>
                     <connections>
+                        <outlet property="currencyLabel" destination="RlD-dh-WoP" id="kSM-yv-5yz"/>
                         <outlet property="currencyPicker" destination="lQG-eX-igH" id="57R-g5-CXr"/>
                         <outlet property="nameTextField" destination="fFI-Ps-aHq" id="dTI-yv-UN4"/>
                         <outlet property="saveButton" destination="55d-GM-vyf" id="1cw-19-Bia"/>
@@ -485,4 +501,7 @@
         <image name="icons8-merchant-account" width="25" height="25"/>
         <image name="icons8-stocks" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="O9O-Xb-hio"/>
+    </inferredMetricsTieBreakers>
 </document>
