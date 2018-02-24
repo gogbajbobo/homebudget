@@ -15,17 +15,15 @@ protocol currencySelectorDelegate {
     
 }
 
-class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIGestureRecognizerDelegate {
+class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var typeSelector: UISegmentedControl!
-    @IBOutlet weak var currencyPicker: UIPickerView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var currencyLabel: UILabel!
     
     var selectedCurrency: String = "RUB"
     
-    let currencies = ["AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "EUR", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "USD", "ZAR"]
     
     // MARK: - Actions
     
@@ -52,7 +50,7 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
             let account: Account = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Account
 
             account.name = nameTextField.text
-            account.currency = selectedCurrency// currencies[self.currencyPicker.selectedRow(inComponent: 0)]
+            account.currency = selectedCurrency
 
         }
         
@@ -87,14 +85,6 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
         
         currencyLabel.text = selectedCurrency
         
-        currencyPicker.dataSource = self
-        currencyPicker.delegate = self
-        currencyPicker.showsSelectionIndicator = true
-        
-        if let rubIndex = currencies.index(of: "RUB") {
-            currencyPicker.selectRow(rubIndex, inComponent: 0, animated: false)
-        }
-        
     }
     
     
@@ -126,20 +116,6 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
         
     }
     
-    // MARK: - UIPickerViewDataSource, UIPickerViewDelegate
-
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return currencies.count
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return currencies[row]
-    }
-
     
     // MARK: - UIGestureRecognizer
     
