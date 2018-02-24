@@ -95,13 +95,17 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         let fromValue = fromValueTextField.text?.doubleValue ?? numberFormatter.number(from: fromValueTextField.placeholder!)?.doubleValue
         let toValue = toValueTextField.text?.doubleValue ?? numberFormatter.number(from: toValueTextField.placeholder!)?.doubleValue
         
-        let transaction = NSEntityDescription.insertNewObject(forEntityName: String(describing: Transaction.self), into: context) as! Transaction
+        context.performAndWait {
         
-        transaction.fromAccount = fromAccount
-        transaction.toAccount = toAccount
-        transaction.fromValue = NSDecimalNumber(value: (fromValue ?? 0.0))
-        transaction.toValue = NSDecimalNumber(value: (toValue ?? fromValue ?? 0.0))
-        transaction.date = Date() as NSDate
+            let transaction = NSEntityDescription.insertNewObject(forEntityName: String(describing: Transaction.self), into: context) as! Transaction
+            
+            transaction.fromAccount = fromAccount
+            transaction.toAccount = toAccount
+            transaction.fromValue = NSDecimalNumber(value: (fromValue ?? 0.0))
+            transaction.toValue = NSDecimalNumber(value: (toValue ?? fromValue ?? 0.0))
+            transaction.date = Date() as NSDate
+
+        }
         
         appDelegate.saveContext()
         

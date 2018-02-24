@@ -38,10 +38,14 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
 
-        let account: Account = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Account
-        
-        account.name = nameTextField.text
-        account.currency = currencies[currencyPicker.selectedRow(inComponent: 0)]
+        context.performAndWait {
+            
+            let account: Account = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Account
+
+            account.name = nameTextField.text
+            account.currency = currencies[self.currencyPicker.selectedRow(inComponent: 0)]
+
+        }
         
         appDelegate.saveContext()
         
