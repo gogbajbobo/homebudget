@@ -66,12 +66,20 @@ class TransactionVC: UIViewController {
     // MARK: Storyboard outlets
     
     @IBOutlet weak var fromSelector: UISegmentedControl!
+    @IBOutlet weak var fromAccountButton: UIButton!
+
     @IBOutlet weak var fromPicker: UIPickerView!
+    
     @IBOutlet weak var textFieldsContainer: UIView!
     @IBOutlet weak var toSelector: UISegmentedControl!
+    @IBOutlet weak var toAccountButton: UIButton!
+
     @IBOutlet weak var toPicker: UIPickerView!
+    
     @IBOutlet weak var saveButton: UIButton!
 
+    
+    
     @IBOutlet var keyboardToolbar: UIToolbar! // TODO: why not auto-weak?
     
     
@@ -83,6 +91,12 @@ class TransactionVC: UIViewController {
     
     @IBAction func toSelectorChanged(_ sender: Any) {
         refreshPickersData()
+    }
+    
+    @IBAction func fromAccountButtonPressed(_ sender: Any) {
+    }
+        
+    @IBAction func toAccountButtonPressed(_ sender: Any) {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {

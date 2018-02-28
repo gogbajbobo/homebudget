@@ -99,6 +99,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkR-TI-gqy">
                                         <rect key="frame" x="0.0" y="45" width="288" height="30"/>
                                         <state key="normal" title="FromAccount"/>
+                                        <connections>
+                                            <action selector="fromAccountButtonPressed:" destination="VPw-IT-eVB" eventType="touchUpInside" id="Bvm-RQ-3mv"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FnR-7T-PQL" userLabel="textFieldsContainer">
                                         <rect key="frame" x="0.0" y="91.5" width="288" height="30"/>
@@ -134,6 +137,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Gv-BD-pcc">
                                         <rect key="frame" x="0.0" y="183" width="288" height="30"/>
                                         <state key="normal" title="To Account"/>
+                                        <connections>
+                                            <action selector="toAccountButtonPressed:" destination="VPw-IT-eVB" eventType="touchUpInside" id="d2E-rA-8HJ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKu-N2-8Ix">
                                         <rect key="frame" x="0.0" y="230" width="288" height="30"/>
@@ -157,10 +163,12 @@
                         <viewLayoutGuide key="safeArea" id="rcL-03-aRc"/>
                     </view>
                     <connections>
+                        <outlet property="fromAccountButton" destination="vkR-TI-gqy" id="4gp-gc-x0m"/>
                         <outlet property="fromSelector" destination="M1F-KM-chL" id="g70-B0-X1O"/>
                         <outlet property="keyboardToolbar" destination="GsJ-es-pub" id="Bx5-My-TWe"/>
                         <outlet property="saveButton" destination="AKu-N2-8Ix" id="UvZ-Dt-spw"/>
                         <outlet property="textFieldsContainer" destination="FnR-7T-PQL" id="PpQ-tj-VWf"/>
+                        <outlet property="toAccountButton" destination="4Gv-BD-pcc" id="Z8R-Y9-afG"/>
                         <outlet property="toSelector" destination="fcW-aB-Bj8" id="Tq4-ZY-PtF"/>
                         <segue destination="nrK-Fy-gUg" kind="show" identifier="showAccounts" id="Pcs-UN-vGQ"/>
                     </connections>
