@@ -165,6 +165,8 @@ class TransactionVC: UIViewController {
 
         saveButton.isEnabled = false
         
+        textFieldsContainer.backgroundColor = UIColor.white
+        
 //        [fromPicker, toPicker].forEach({
 //
 //            $0?.delegate = self
