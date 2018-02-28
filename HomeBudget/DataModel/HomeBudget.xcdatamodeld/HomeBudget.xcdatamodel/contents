@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D102" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Account" representedClassName=".Account" isAbstract="YES" syncable="YES">
         <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <relationship name="inTransactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="toAccount" inverseEntity="Transaction" syncable="YES"/>
         <relationship name="outTransactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="fromAccount" inverseEntity="Transaction" syncable="YES"/>
+        <relationship name="subAccounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SubAccount" inverseName="mainAccount" inverseEntity="SubAccount" syncable="YES"/>
     </entity>
     <entity name="ActiveAccount" representedClassName=".ActiveAccount" parentEntity="Account" syncable="YES"/>
     <entity name="ExpenseAccount" representedClassName=".ExpenseAccount" parentEntity="Account" syncable="YES"/>
     <entity name="IncomeAccount" representedClassName=".IncomeAccount" parentEntity="Account" syncable="YES"/>
+    <entity name="SubAccount" representedClassName=".SubAccount" parentEntity="Account" syncable="YES">
+        <relationship name="mainAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="subAccounts" inverseEntity="Account" syncable="YES"/>
+    </entity>
     <entity name="Transaction" representedClassName=".Transaction" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="fromValue" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
@@ -18,10 +22,11 @@
         <relationship name="toAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="inTransactions" inverseEntity="Account" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Account" positionX="-137" positionY="-234" width="128" height="118"/>
+        <element name="Account" positionX="-137" positionY="-234" width="128" height="133"/>
         <element name="ActiveAccount" positionX="-135" positionY="-72" width="128" height="43"/>
         <element name="ExpenseAccount" positionX="79" positionY="-72" width="128" height="43"/>
         <element name="IncomeAccount" positionX="-342" positionY="-72" width="128" height="43"/>
         <element name="Transaction" positionX="-135" positionY="-405" width="128" height="118"/>
+        <element name="SubAccount" positionX="45" positionY="-198" width="128" height="58"/>
     </elements>
 </model>

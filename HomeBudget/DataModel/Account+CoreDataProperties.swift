@@ -2,7 +2,7 @@
 //  Account+CoreDataProperties.swift
 //  HomeBudget
 //
-//  Created by Maxim Grigoriev on 20/02/2018.
+//  Created by Maxim Grigoriev on 28/02/2018.
 //  Copyright © 2018 Maxim Grigoriev. All rights reserved.
 //
 //
@@ -22,6 +22,7 @@ extension Account {
     @NSManaged public var value: NSDecimalNumber?
     @NSManaged public var inTransactions: NSSet?
     @NSManaged public var outTransactions: NSSet?
+    @NSManaged public var subAccounts: NSSet?
 
 }
 
@@ -56,5 +57,22 @@ extension Account {
 
     @objc(removeOutTransactions:)
     @NSManaged public func removeFromOutTransactions(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for subAccounts
+extension Account {
+
+    @objc(addSubAccountsObject:)
+    @NSManaged public func addToSubAccounts(_ value: SubAccount)
+
+    @objc(removeSubAccountsObject:)
+    @NSManaged public func removeFromSubAccounts(_ value: SubAccount)
+
+    @objc(addSubAccounts:)
+    @NSManaged public func addToSubAccounts(_ values: NSSet)
+
+    @objc(removeSubAccounts:)
+    @NSManaged public func removeFromSubAccounts(_ values: NSSet)
 
 }

@@ -32,6 +32,8 @@
 		2C54B109203723AB00BDD12E /* JSONHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B108203723AB00BDD12E /* JSONHandler.swift */; };
 		2C54B10E20385B7100BDD12E /* NetworkIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */; };
 		2C7AAF48204140A000620926 /* NSManagedObjectContext+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AAF47204140A000620926 /* NSManagedObjectContext+extension.swift */; };
+		2C7AAF4B2046BED200620926 /* SubAccount+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AAF492046BED200620926 /* SubAccount+CoreDataClass.swift */; };
+		2C7AAF4C2046BED200620926 /* SubAccount+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AAF4A2046BED200620926 /* SubAccount+CoreDataProperties.swift */; };
 		2CE2F94D2039717E00283C11 /* TransactionsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */; };
 		2CE2F94F203971B900283C11 /* FetchedResultsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */; };
 		2CE2F951203972DB00283C11 /* TransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F950203972DB00283C11 /* TransactionVC.swift */; };
@@ -93,6 +95,8 @@
 		2C54B108203723AB00BDD12E /* JSONHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONHandler.swift; sourceTree = "<group>"; };
 		2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIndicator.swift; sourceTree = "<group>"; };
 		2C7AAF47204140A000620926 /* NSManagedObjectContext+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+extension.swift"; sourceTree = "<group>"; };
+		2C7AAF492046BED200620926 /* SubAccount+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2C7AAF4A2046BED200620926 /* SubAccount+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubAccount+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTVC.swift; sourceTree = "<group>"; };
 		2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsTVC.swift; sourceTree = "<group>"; };
 		2CE2F950203972DB00283C11 /* TransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionVC.swift; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 		2C54B0D52036D7A100BDD12E /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				2C7AAF492046BED200620926 /* SubAccount+CoreDataClass.swift */,
+				2C7AAF4A2046BED200620926 /* SubAccount+CoreDataProperties.swift */,
 				2C54B0DA2036D7E900BDD12E /* Account+CoreDataClass.swift */,
 				2C54B0DB2036D7E900BDD12E /* Account+CoreDataProperties.swift */,
 				2C54B0D62036D7E900BDD12E /* ActiveAccount+CoreDataClass.swift */,
@@ -379,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C7AAF4C2046BED200620926 /* SubAccount+CoreDataProperties.swift in Sources */,
 				2C54B0E82036D7E900BDD12E /* IncomeAccount+CoreDataClass.swift in Sources */,
 				2C54B0E12036D7E900BDD12E /* ActiveAccount+CoreDataProperties.swift in Sources */,
 				2C54B0912036D3E200BDD12E /* AppDelegate.swift in Sources */,
@@ -397,6 +404,7 @@
 				2CE2F94F203971B900283C11 /* FetchedResultsTVC.swift in Sources */,
 				2C54B0E52036D7E900BDD12E /* Account+CoreDataProperties.swift in Sources */,
 				2C54B0FD2036EBFA00BDD12E /* AccountVC.swift in Sources */,
+				2C7AAF4B2046BED200620926 /* SubAccount+CoreDataClass.swift in Sources */,
 				2C54B0E02036D7E900BDD12E /* ActiveAccount+CoreDataClass.swift in Sources */,
 				2CE2F9542039C00E00283C11 /* String+extension.swift in Sources */,
 				2C54B0F92036DFAE00BDD12E /* AccountsTVC.swift in Sources */,
