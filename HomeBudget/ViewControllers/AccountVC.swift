@@ -147,20 +147,12 @@ extension AccountVC: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if textField == nameTextField {
-            
-            if let text = textField.text, let textRange = Range(range, in: text) {
-                
-                let updatedText = text.replacingCharacters(in: textRange, with: string)
-                saveButton.isEnabled = updatedText.trimmingCharacters(in: .whitespacesAndNewlines).count > 0
-                
-            }
-            
+        guard let text = textField.text, let textRange = Range(range, in: text) else {
+            return false
         }
-        
-        if textField == initialValueTextField {
-            
-        }
+
+        let updatedText = text.replacingCharacters(in: textRange, with: string)
+        validateValue(textField: textField, updatedText: updatedText)
         
         return true
         
@@ -171,6 +163,37 @@ extension AccountVC: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
         
+    }
+
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        
+        validateValue(textField: textField, updatedText: "")
+        return true
+        
+    }
+
+    func validateValue(textField: UITextField, updatedText: String) {
+        
+        if textField == nameTextField {
+            saveButton.isEnabled = updatedText.trimmingCharacters(in: .whitespacesAndNewlines).count > 0
+        }
+        
+        if textField == initialValueTextField {
+
+            let valueIsValid = textFieldIsValid(text: updatedText)
+            
+            textField.layer.borderWidth = valueIsValid ? 0.0 : 1.0
+            textField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
+            textField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
+            
+            saveButton.isEnabled = valueIsValid
+
+        }
+        
+    }
+
+    func textFieldIsValid(text: String?) -> Bool {
+        return text?.doubleValue != nil || text == ""
     }
 
 }
