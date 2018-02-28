@@ -132,8 +132,7 @@ class AccountsTVC: FetchedResultsTVC {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "addAccount", let dc = segue.destination as? AccountVC {
-            
-            
+            dc.accountCreator = self
         }
         
     }

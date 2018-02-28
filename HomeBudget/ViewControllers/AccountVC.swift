@@ -9,11 +9,11 @@
 import UIKit
 import CoreData
 
+
 protocol CurrencySelectorDelegate {
-    
     func currencySelected(_ currencyName: String)
-    
 }
+
 
 class AccountVC: UIViewController {
 
@@ -25,6 +25,7 @@ class AccountVC: UIViewController {
     
     @IBOutlet var keyboardToolbar: UIToolbar!
     
+    var accountCreator: AccountCreatorDelegate?
     
     var selectedCurrency: String = "RUB"
     
@@ -98,6 +99,8 @@ class AccountVC: UIViewController {
         initialValueTextField.inputAccessoryView = keyboardToolbar
         
         saveButton.isEnabled = false
+        
+        typeSelector.selectedSegmentIndex = accountCreator?.selectedAccountTypeIndex() ?? 0
 
         updateCurrencyButtonTitle()
         
