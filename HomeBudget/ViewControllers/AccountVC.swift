@@ -87,8 +87,20 @@ class AccountVC: UIViewController {
         
         saveButton.isEnabled = false
         
-        typeSelector.selectedSegmentIndex = accountCreator?.selectedAccountTypeIndex() ?? 0
-
+        let accountEntitiesNames = [String(describing: IncomeAccount.self),
+                                    String(describing: ActiveAccount.self),
+                                    String(describing: ExpenseAccount.self)]
+        
+        if
+            let entityName = accountCreator?.selectedAccountTypeName(),
+            let index = accountEntitiesNames.index(of: entityName) {
+            typeSelector.selectedSegmentIndex = index
+        } else {
+            typeSelector.selectedSegmentIndex = -1
+        }
+        
+        typeSelector.isEnabled = accountCreator?.isAllowedToChangeType() ?? false
+        
         updateCurrencyButtonTitle()
         
     }

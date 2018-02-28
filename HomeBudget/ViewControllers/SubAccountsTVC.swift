@@ -128,12 +128,16 @@ class SubAccountsTVC: FetchedResultsTVC {
 
 extension SubAccountsTVC: AccountCreatorDelegate {
     
-    func selectedAccountTypeIndex() -> Int {
-        return 1
-    }
-    
     func accountTypeSelected(_ typeIndex: Int) {
         
+    }
+    
+    func selectedAccountTypeName() -> String? {
+        return mainAccount?.entity.name
+    }
+
+    func isAllowedToChangeType() -> Bool {
+        return false
     }
 
     func createAccount(name: String?, currency: String?, entityName: String?) {

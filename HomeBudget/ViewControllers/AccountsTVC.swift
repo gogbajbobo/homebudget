@@ -17,9 +17,9 @@ class AccountAccessoryButton: UIButton {
 
 protocol AccountCreatorDelegate {
 
-    func selectedAccountTypeIndex() -> Int
     func accountTypeSelected(_ typeIndex: Int)
-    
+    func selectedAccountTypeName() -> String?
+    func isAllowedToChangeType() -> Bool
     func createAccount(name: String?, currency: String?, entityName: String?)
 
 }
@@ -181,15 +181,19 @@ class AccountsTVC: FetchedResultsTVC {
 
 extension AccountsTVC: AccountCreatorDelegate {
     
-    func selectedAccountTypeIndex() -> Int {
-        return accountsTypeSelector.selectedSegmentIndex
-    }
-    
     func accountTypeSelected(_ typeIndex: Int) {
         
         accountsTypeSelector.selectedSegmentIndex = typeIndex
         fetchData()
         
+    }
+    
+    func selectedAccountTypeName() -> String? {
+        return selectedTypeName()
+    }
+
+    func isAllowedToChangeType() -> Bool {
+        return true
     }
     
     func createAccount(name: String?, currency: String?, entityName: String?) {
