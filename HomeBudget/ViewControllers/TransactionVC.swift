@@ -267,10 +267,6 @@ class TransactionVC: UIViewController {
         return fromAccount?.currency == toAccount?.currency
     }
 
-    func textFieldIsValid(text: String?) -> Bool {
-        return text?.doubleValue != nil || text == ""
-    }
-
     func oppositeTextField(for textField: UITextField) -> UITextField {
         return textField == fromValueTextField ? toValueTextField : fromValueTextField
     }
@@ -428,6 +424,10 @@ extension TransactionVC: UITextFieldDelegate {
             
         }
         
+    }
+
+    func textFieldIsValid(text: String?) -> Bool {
+        return text?.doubleValue != nil || text == ""
     }
 
 }
