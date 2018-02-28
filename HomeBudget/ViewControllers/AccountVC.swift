@@ -34,18 +34,8 @@ class AccountVC: UIViewController {
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         
-        let entityName: String
-        
-        switch typeSelector.selectedSegmentIndex {
-        case 0:
-            entityName = String(describing: IncomeAccount.self)
-        case 1:
-            entityName = String(describing: ActiveAccount.self)
-        case 2:
-            entityName = String(describing: ExpenseAccount.self)
-        default:
-            entityName = String(describing: Account.self)
-        }
+        let typeTitle = typeSelector.titleForSegment(at: typeSelector.selectedSegmentIndex) ?? ""
+        let entityName = AccountsService.accountEntityForSelectorName(typeTitle)
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext

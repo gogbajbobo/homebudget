@@ -19,6 +19,8 @@ protocol AccountCreatorDelegate {
 
     func selectedAccountTypeIndex() -> Int
     func accountTypeSelected(_ typeIndex: Int)
+    
+    func createAccount(name: String, currency: String, type: Int)
 
 }
 
@@ -49,19 +51,9 @@ class AccountsTVC: FetchedResultsTVC {
         
         guard let context = context else { return }
         
-        let entityName: String
-        
-        switch accountsTypeSelector.selectedSegmentIndex {
-        case 0:
-            entityName = String(describing: IncomeAccount.self)
-        case 1:
-            entityName = String(describing: ActiveAccount.self)
-        case 2:
-            entityName = String(describing: ExpenseAccount.self)
-        default:
-            entityName = String(describing: Account.self)
-        }
-        
+        let typeTitle = accountsTypeSelector.titleForSegment(at: accountsTypeSelector.selectedSegmentIndex) ?? ""
+        let entityName = AccountsService.accountEntityForSelectorName(typeTitle)
+                
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
@@ -184,6 +176,10 @@ extension AccountsTVC: AccountCreatorDelegate {
         accountsTypeSelector.selectedSegmentIndex = typeIndex
         fetchData()
         
+    }
+    
+    func createAccount(name: String, currency: String, type: Int) {
+    
     }
     
 }

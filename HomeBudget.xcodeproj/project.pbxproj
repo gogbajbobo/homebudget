@@ -35,6 +35,7 @@
 		2C7AAF4B2046BED200620926 /* SubAccount+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AAF492046BED200620926 /* SubAccount+CoreDataClass.swift */; };
 		2C7AAF4C2046BED200620926 /* SubAccount+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AAF4A2046BED200620926 /* SubAccount+CoreDataProperties.swift */; };
 		2C7AAF4E2046BFF200620926 /* SubAccountsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AAF4D2046BFF200620926 /* SubAccountsTVC.swift */; };
+		2C7AAF502046D30800620926 /* AccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AAF4F2046D30800620926 /* AccountsService.swift */; };
 		2CE2F94D2039717E00283C11 /* TransactionsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */; };
 		2CE2F94F203971B900283C11 /* FetchedResultsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */; };
 		2CE2F951203972DB00283C11 /* TransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F950203972DB00283C11 /* TransactionVC.swift */; };
@@ -99,6 +100,7 @@
 		2C7AAF492046BED200620926 /* SubAccount+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2C7AAF4A2046BED200620926 /* SubAccount+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubAccount+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2C7AAF4D2046BFF200620926 /* SubAccountsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubAccountsTVC.swift; sourceTree = "<group>"; };
+		2C7AAF4F2046D30800620926 /* AccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsService.swift; sourceTree = "<group>"; };
 		2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTVC.swift; sourceTree = "<group>"; };
 		2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsTVC.swift; sourceTree = "<group>"; };
 		2CE2F950203972DB00283C11 /* TransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionVC.swift; sourceTree = "<group>"; };
@@ -190,10 +192,10 @@
 		2C54B0D52036D7A100BDD12E /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				2C7AAF492046BED200620926 /* SubAccount+CoreDataClass.swift */,
-				2C7AAF4A2046BED200620926 /* SubAccount+CoreDataProperties.swift */,
 				2C54B0DA2036D7E900BDD12E /* Account+CoreDataClass.swift */,
 				2C54B0DB2036D7E900BDD12E /* Account+CoreDataProperties.swift */,
+				2C7AAF492046BED200620926 /* SubAccount+CoreDataClass.swift */,
+				2C7AAF4A2046BED200620926 /* SubAccount+CoreDataProperties.swift */,
 				2C54B0D62036D7E900BDD12E /* ActiveAccount+CoreDataClass.swift */,
 				2C54B0D72036D7E900BDD12E /* ActiveAccount+CoreDataProperties.swift */,
 				2C54B0D82036D7E900BDD12E /* ExpenseAccount+CoreDataClass.swift */,
@@ -238,6 +240,7 @@
 				2C54B108203723AB00BDD12E /* JSONHandler.swift */,
 				2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */,
 				2CE2F959203C1B5A00283C11 /* CurrencyService.swift */,
+				2C7AAF4F2046D30800620926 /* AccountsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				2C54B10E20385B7100BDD12E /* NetworkIndicator.swift in Sources */,
 				2C7AAF4E2046BFF200620926 /* SubAccountsTVC.swift in Sources */,
 				2C54B0E42036D7E900BDD12E /* Account+CoreDataClass.swift in Sources */,
+				2C7AAF502046D30800620926 /* AccountsService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

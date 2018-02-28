@@ -98,6 +98,27 @@ class SubAccountsTVC: FetchedResultsTVC {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
+        if segue.identifier == "addAccount", let dc = segue.destination as? AccountVC {
+            dc.accountCreator = self
+        }
+
+    }
+
+}
+
+
+extension SubAccountsTVC: AccountCreatorDelegate {
+    
+    func selectedAccountTypeIndex() -> Int {
+        return 1
+    }
+    
+    func accountTypeSelected(_ typeIndex: Int) {
+        
+    }
+
+    func createAccount(name: String, currency: String, type: Int) {
+        
     }
 
 }
