@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreData
+
 
 class SubAccountsTVC: FetchedResultsTVC {
     
@@ -39,59 +41,76 @@ class SubAccountsTVC: FetchedResultsTVC {
     }
 
     
+    // MARK: Methods
+    
+    private func fetchData() {
+        
+        guard let context = context else { return }
+        guard let entityName = mainAccount?.entity.name else { return }
+        guard let mainAccount = mainAccount else { return }
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "mainAccount == %@", mainAccount)
+        
+        frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                         managedObjectContext: context,
+                                         sectionNameKeyPath: nil,
+                                         cacheName: nil)
+        frc?.delegate = self
+        
+        do {
+            try frc?.performFetch()
+        } catch {
+            fatalError("Failed to fetch entities: \(error)")
+        }
+        
+        tableView.reloadData()
+        
+    }
+
+    
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "subAccountCell", for: indexPath)
+        
+        guard let account = frc?.object(at: indexPath) as? Account else {
+            fatalError("Attempt to configure cell without a managed object")
+        }
+        
+        cell.textLabel?.text = account.name
+        
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.maximumFractionDigits = 0
+        numberFormatter.currencyCode = account.currency
+        
+        if account.currency == "RUB" {
+            numberFormatter.currencySymbol = "₽"
+        }
+        
+        cell.detailTextLabel?.text = numberFormatter.string(from: account.value ?? 0)
+        
         return cell
-    
+        
     }
-
-    /*
-    // Override to support conditional editing of the table view.
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
-
-    /*
-    // Override to support editing the table view.
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if let account = frc?.object(at: indexPath) { context?.delete(account) }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
+        
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
 
     // MARK: - Navigation
