@@ -40,10 +40,23 @@ class AccountsService: NSObject {
         
         context.performAndWait {
             
-            let account: Account = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Account
+            if entityName == String(describing: SubAccount.self) {
             
-            account.name = name
-            account.currency = currency
+                let subAccount: SubAccount = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! SubAccount
+                
+                subAccount.name = name
+                subAccount.currency = currency
+                subAccount.mainAccount = mainAccount
+
+            } else {
+                
+                let account: Account = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Account
+                
+                account.name = name
+                account.currency = currency
+
+            }
+            
             
         }
         
