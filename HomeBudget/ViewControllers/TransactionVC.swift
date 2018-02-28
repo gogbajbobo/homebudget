@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
+class TransactionVC: UIViewController {
 
     
     // MARK: Variables
@@ -315,36 +315,66 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
 
     }
     
-    func validateValue(textField: UITextField, updatedText: String) {
+    func accountsForPicker(_ picker: UIPickerView) -> [Account]? {
         
-        var valueIsValid = textFieldIsValid(text: updatedText)
-        
-        textField.layer.borderWidth = valueIsValid ? 0.0 : 1.0
-        textField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
-        textField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
-        
-        let otherTextField = oppositeTextField(for: textField)
-        valueIsValid &= textFieldIsValid(text: otherTextField.text)
-        valueIsValid &= (updatedText != "" || otherTextField.text != "")
-        
-        saveButton.isEnabled = valueIsValid
-
-        if valueIsValid && !accountsHaveSameCurrency() {
+        if picker == fromPicker {
             
-            if let calcRate = rateForTextField(otherTextField), let doubleValue = updatedText.doubleValue {
-                
-                let currencyCode = currencyForTextField(otherTextField)
-                numberFormatter.currencySymbol = currencyCode == "RUB" ? "₽" : currencyCode
-                otherTextField.placeholder = numberFormatter.string(from: NSNumber(value: calcRate * doubleValue))
+            if fromSelector.selectedSegmentIndex == 0 { return incomeAccounts }
+            if fromSelector.selectedSegmentIndex == 1 { return activeAccounts }
 
-            }
-            
         }
+        
+        if picker == toPicker {
+            
+            if toSelector.selectedSegmentIndex == 0 { return activeAccounts }
+            if toSelector.selectedSegmentIndex == 1 { return expenseAccounts }
+
+        }
+        
+        return nil
+
+    }
+
+}
+
+
+// MARK: - UIPickerViewDataSource, UIPickerViewDelegate
+
+extension TransactionVC: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return accountsForPicker(pickerView)?.count ?? 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        let account = accountsForPicker(pickerView)?[row]
+        
+        guard
+            let name = account?.name,
+            let currency = account?.currency else { return nil }
+        
+        return name + " " + currency
         
     }
     
-    
-    // MARK: - UITextFieldDelegate
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        updateRates()
+        refreshTextFieldsState()
+        
+    }
+
+}
+
+
+// MARK: - UITextFieldDelegate
+
+extension TransactionVC: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
@@ -371,65 +401,47 @@ class TransactionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         return true
         
     }
-    
 
-    // MARK: - UIPickerViewDataSource, UIPickerViewDelegate
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return accountsForPicker(pickerView)?.count ?? 0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func validateValue(textField: UITextField, updatedText: String) {
         
-        let account = accountsForPicker(pickerView)?[row]
+        var valueIsValid = textFieldIsValid(text: updatedText)
         
-        guard
-            let name = account?.name,
-            let currency = account?.currency else { return nil }
+        textField.layer.borderWidth = valueIsValid ? 0.0 : 1.0
+        textField.layer.cornerRadius = valueIsValid ? 0.0 : 5.0
+        textField.layer.borderColor = valueIsValid ? UIColor.black.cgColor : UIColor.red.cgColor
         
-        return name + " " + currency
+        let otherTextField = oppositeTextField(for: textField)
+        valueIsValid &= textFieldIsValid(text: otherTextField.text)
+        valueIsValid &= (updatedText != "" || otherTextField.text != "")
         
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        saveButton.isEnabled = valueIsValid
         
-        updateRates()
-        refreshTextFieldsState()
-
-    }
-    
-    func accountsForPicker(_ picker: UIPickerView) -> [Account]? {
-        
-        if picker == fromPicker {
+        if valueIsValid && !accountsHaveSameCurrency() {
             
-            if fromSelector.selectedSegmentIndex == 0 { return incomeAccounts }
-            if fromSelector.selectedSegmentIndex == 1 { return activeAccounts }
-
+            if let calcRate = rateForTextField(otherTextField), let doubleValue = updatedText.doubleValue {
+                
+                let currencyCode = currencyForTextField(otherTextField)
+                numberFormatter.currencySymbol = currencyCode == "RUB" ? "₽" : currencyCode
+                otherTextField.placeholder = numberFormatter.string(from: NSNumber(value: calcRate * doubleValue))
+                
+            }
+            
         }
         
-        if picker == toPicker {
-            
-            if toSelector.selectedSegmentIndex == 0 { return activeAccounts }
-            if toSelector.selectedSegmentIndex == 1 { return expenseAccounts }
-
-        }
-        
-        return nil
-
     }
 
-    
-    // MARK: - NSFetchedResultsControllerDelegate
+}
 
+
+// MARK: - NSFetchedResultsControllerDelegate
+
+extension TransactionVC: NSFetchedResultsControllerDelegate {
+    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-
+        
         refillAccountsArray()
         refreshPickersData()
         
     }
-    
+
 }
