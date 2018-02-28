@@ -117,4 +117,16 @@ class AccountsTVC: FetchedResultsTVC {
         
     }
 
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "addAccount", let dc = segue.destination as? AccountVC {
+            
+            
+        }
+        
+    }
+
 }

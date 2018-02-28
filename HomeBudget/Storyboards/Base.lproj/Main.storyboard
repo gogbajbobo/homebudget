@@ -247,7 +247,7 @@
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="FTF-sR-Sgf">
                             <connections>
-                                <segue destination="u5G-XW-2mP" kind="show" id="8YC-5E-gd6"/>
+                                <segue destination="u5G-XW-2mP" kind="show" identifier="addAccount" id="8YC-5E-gd6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
