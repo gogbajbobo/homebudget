@@ -65,6 +65,10 @@ class AccountVC: UIViewController {
         
     }
     
+    @IBAction func selectedTypeChanged(_ sender: Any) {
+        accountCreator?.accountTypeSelected(typeSelector.selectedSegmentIndex)
+    }
+    
     @IBAction func keyboardCancelPressed(_ sender: Any) {
         closeKeyboard()
     }
