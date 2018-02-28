@@ -123,7 +123,7 @@ class AccountsTVC: FetchedResultsTVC {
         
         cell.detailTextLabel?.text = numberFormatter.string(from: account.value ?? 0)
         
-        let accessoryImageName = account.subAccounts?.count ?? 0 > 0 ? "icons8-chevron_right_filled" : "icons8-plus_math_filled"
+        let accessoryImageName = account.subAccounts?.count ?? 0 > 0 ? "icons8-forward_filled" : "icons8-plus_math_filled"
         
         let image = UIImage(imageLiteralResourceName: accessoryImageName).withRenderingMode(.alwaysTemplate)
         let width = image.size.width
