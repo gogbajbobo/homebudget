@@ -108,6 +108,17 @@ class AccountsTVC: FetchedResultsTVC {
         
         cell.detailTextLabel?.text = numberFormatter.string(from: account.value ?? 0)
         
+        let accessoryImageName = account.subAccounts?.count ?? 0 > 0 ? "icons8-chevron_right_filled" : "icons8-plus_math_filled"
+        cell.accessoryView = UIImageView(image: UIImage(imageLiteralResourceName: accessoryImageName).withRenderingMode(.alwaysTemplate))
+        cell.accessoryView?.tintColor = self.view.tintColor
+        cell.accessoryView?.contentMode = .scaleAspectFit
+        
+        if
+            let width = cell.accessoryView?.frame.size.width,
+            let height = cell.accessoryView?.frame.size.height {
+            cell.accessoryView?.frame = CGRect(x: 0, y: 0, width: width * 1.5, height: height)
+        }
+
         return cell
         
     }
