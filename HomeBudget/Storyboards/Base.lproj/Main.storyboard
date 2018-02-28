@@ -286,6 +286,7 @@
                     <navigationItem key="navigationItem" id="Glv-Kl-0Qn">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="7Ly-07-6Sr">
                             <connections>
+                                <action selector="addButtonPressed:" destination="gj6-UC-zw9" id="yFe-7D-0jU"/>
                                 <segue destination="u5G-XW-2mP" kind="show" identifier="addAccount" id="4BV-YB-Pvi"/>
                             </connections>
                         </barButtonItem>
@@ -535,6 +536,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="O9O-Xb-hio"/>
-        <segue reference="8YC-5E-gd6"/>
+        <segue reference="4BV-YB-Pvi"/>
     </inferredMetricsTieBreakers>
 </document>
