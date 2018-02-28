@@ -94,11 +94,11 @@ class TransactionVC: UIViewController {
     }
     
     @IBAction func fromAccountButtonPressed(_ sender: Any) {
-        
+        performSegue(withIdentifier: "showAccounts", sender: sender)
     }
         
     @IBAction func toAccountButtonPressed(_ sender: Any) {
-        
+        performSegue(withIdentifier: "showAccounts", sender: sender)
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
