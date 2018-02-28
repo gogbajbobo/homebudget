@@ -9,6 +9,10 @@
 import UIKit
 
 class SubAccountsTVC: FetchedResultsTVC {
+    
+    var mainAccount: Account?
+    
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
