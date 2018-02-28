@@ -194,9 +194,10 @@ extension AccountsTVC: AccountCreatorDelegate {
     
     func createAccount(name: String?, currency: String?, entityName: String?) {
         
-        AccountsService.createAccount(name: name,
+        AccountsService.createAccount(accountEntity: entityName,
+                                      name: name,
                                       currency: currency,
-                                      accountEntity: entityName)
+                                      mainAccount: nil)
         
     }
     

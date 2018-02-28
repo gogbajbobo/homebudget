@@ -31,7 +31,7 @@ class AccountsService: NSObject {
         
     }
     
-    class func createAccount(name: String?, currency: String?, accountEntity: String?) {
+    class func createAccount(accountEntity: String?, name: String?, currency: String?, mainAccount: Account?) {
         
         guard let entityName = accountEntity else { return }
         
