@@ -34,6 +34,8 @@ class SubAccountsTVC: FetchedResultsTVC {
             performSegue(withIdentifier: "addAccount", sender: self)
         }
         
+        fetchData()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,10 +48,9 @@ class SubAccountsTVC: FetchedResultsTVC {
     private func fetchData() {
         
         guard let context = context else { return }
-        guard let entityName = mainAccount?.entity.name else { return }
         guard let mainAccount = mainAccount else { return }
         
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: String(describing: SubAccount.self))
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "mainAccount == %@", mainAccount)
         
