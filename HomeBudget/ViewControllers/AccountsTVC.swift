@@ -114,15 +114,19 @@ class AccountsTVC: FetchedResultsTVC {
         cell.detailTextLabel?.text = numberFormatter.string(from: account.value ?? 0)
         
         let accessoryImageName = account.subAccounts?.count ?? 0 > 0 ? "icons8-chevron_right_filled" : "icons8-plus_math_filled"
-        cell.accessoryView = UIImageView(image: UIImage(imageLiteralResourceName: accessoryImageName).withRenderingMode(.alwaysTemplate))
-        cell.accessoryView?.tintColor = self.view.tintColor
-        cell.accessoryView?.contentMode = .scaleAspectFit
         
-        if
-            let width = cell.accessoryView?.frame.size.width,
-            let height = cell.accessoryView?.frame.size.height {
-            cell.accessoryView?.frame = CGRect(x: 0, y: 0, width: width * 1.5, height: height)
-        }
+        let image = UIImage(imageLiteralResourceName: accessoryImageName).withRenderingMode(.alwaysTemplate)
+        let width = image.size.width
+        let height = image.size.height
+        let frame = CGRect(x: 0, y: 0, width: width * 1.5, height: height)
+        let accessoryButton = AccountAccessoryButton(frame: frame)
+        
+        accessoryButton.account = account
+        accessoryButton.setImage(image, for: .normal)
+        accessoryButton.imageEdgeInsets.left = width * 0.5
+        
+        cell.accessoryView = accessoryButton
+        cell.accessoryView?.tintColor = self.view.tintColor
 
         return cell
         
@@ -141,7 +145,7 @@ class AccountsTVC: FetchedResultsTVC {
         }
         
     }
-
+    
     
     // MARK: - Navigation
     
