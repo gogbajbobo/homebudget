@@ -9,13 +9,13 @@
 import UIKit
 import CoreData
 
-protocol currencySelectorDelegate {
+protocol CurrencySelectorDelegate {
     
     func currencySelected(_ currencyName: String)
     
 }
 
-class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class AccountVC: UIViewController {
 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var typeSelector: UISegmentedControl!
@@ -114,43 +114,6 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDeleg
         currencyButton.setTitle(selectedCurrency, for: .normal)
     }
     
-    // MARK: - UITextFieldDelegate
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        if textField == nameTextField {
-
-            if let text = textField.text, let textRange = Range(range, in: text) {
-                
-                let updatedText = text.replacingCharacters(in: textRange, with: string)
-                saveButton.isEnabled = updatedText.trimmingCharacters(in: .whitespacesAndNewlines).count > 0
-                
-            }
-
-        }
-
-        if textField == initialValueTextField {
-            
-        }
-        
-        return true
-        
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        textField.resignFirstResponder()
-        return true
-        
-    }
-    
-    
-    // MARK: - UIGestureRecognizer
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return true
-    }
-
     
      // MARK: - Navigation
     
@@ -167,7 +130,56 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDeleg
 
 }
 
-extension AccountVC: currencySelectorDelegate {
+
+// MARK: - UITextFieldDelegate
+
+extension AccountVC: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == nameTextField {
+            
+            if let text = textField.text, let textRange = Range(range, in: text) {
+                
+                let updatedText = text.replacingCharacters(in: textRange, with: string)
+                saveButton.isEnabled = updatedText.trimmingCharacters(in: .whitespacesAndNewlines).count > 0
+                
+            }
+            
+        }
+        
+        if textField == initialValueTextField {
+            
+        }
+        
+        return true
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        return true
+        
+    }
+
+}
+
+
+// MARK: - UIGestureRecognizer
+
+extension AccountVC: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return true
+    }
+
+}
+
+
+// MARK: - CurrencySelectorDelegate
+
+extension AccountVC: CurrencySelectorDelegate {
     
     func currencySelected(_ currencyName: String) {
         

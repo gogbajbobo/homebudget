@@ -19,7 +19,7 @@ class CurrenciesTVC: UITableViewController {
     
     var ratesArray: [(key: String, value: Any)]?
     var selectedCurrency: (String, Int)?
-    var selectingParent: currencySelectorDelegate?
+    var selectingParent: CurrencySelectorDelegate?
     
     
     // MARK: - Storyboard outlets
