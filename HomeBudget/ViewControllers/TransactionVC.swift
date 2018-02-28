@@ -24,9 +24,9 @@ class TransactionVC: UIViewController {
     var fromAccount: Account? {
         get {
             
-            if let accounts = self.accountsForPicker(self.fromPicker), accounts.count > 0 {
-                return accounts[self.fromPicker.selectedRow(inComponent: 0)]
-            }
+//            if let accounts = self.accountsForPicker(self.fromPicker), accounts.count > 0 {
+//                return accounts[self.fromPicker.selectedRow(inComponent: 0)]
+//            }
             return nil
             
         }
@@ -34,9 +34,9 @@ class TransactionVC: UIViewController {
     var toAccount: Account? {
         get {
             
-            if let accounts = self.accountsForPicker(self.toPicker) {
-                return accounts[self.toPicker.selectedRow(inComponent: 0)]
-            }
+//            if let accounts = self.accountsForPicker(self.toPicker) {
+//                return accounts[self.toPicker.selectedRow(inComponent: 0)]
+//            }
             return nil
         
         }
@@ -68,13 +68,13 @@ class TransactionVC: UIViewController {
     @IBOutlet weak var fromSelector: UISegmentedControl!
     @IBOutlet weak var fromAccountButton: UIButton!
 
-    @IBOutlet weak var fromPicker: UIPickerView!
+//    @IBOutlet weak var fromPicker: UIPickerView!
     
     @IBOutlet weak var textFieldsContainer: UIView!
     @IBOutlet weak var toSelector: UISegmentedControl!
     @IBOutlet weak var toAccountButton: UIButton!
 
-    @IBOutlet weak var toPicker: UIPickerView!
+//    @IBOutlet weak var toPicker: UIPickerView!
     
     @IBOutlet weak var saveButton: UIButton!
 
@@ -86,17 +86,19 @@ class TransactionVC: UIViewController {
     // MARK: - Storyboard actions
     
     @IBAction func fromSelectorChanged(_ sender: Any) {
-        refreshPickersData()
+//        refreshPickersData()
     }
     
     @IBAction func toSelectorChanged(_ sender: Any) {
-        refreshPickersData()
+//        refreshPickersData()
     }
     
     @IBAction func fromAccountButtonPressed(_ sender: Any) {
+        
     }
         
     @IBAction func toAccountButtonPressed(_ sender: Any) {
+        
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
@@ -163,13 +165,13 @@ class TransactionVC: UIViewController {
 
         saveButton.isEnabled = false
         
-        [fromPicker, toPicker].forEach({
-            
-            $0?.delegate = self
-            $0?.dataSource = self
-            $0?.reloadAllComponents()
-
-        })
+//        [fromPicker, toPicker].forEach({
+//
+//            $0?.delegate = self
+//            $0?.dataSource = self
+//            $0?.reloadAllComponents()
+//
+//        })
 
         setupTextFields()
         
@@ -266,12 +268,12 @@ class TransactionVC: UIViewController {
 
     }
     
-    func refreshPickersData() {
-        
-        [fromPicker, toPicker].forEach({ $0?.reloadAllComponents() })
-        refreshTextFieldsState()
-
-    }
+//    func refreshPickersData() {
+//
+//        [fromPicker, toPicker].forEach({ $0?.reloadAllComponents() })
+//        refreshTextFieldsState()
+//
+//    }
     
     func isTransactionDataValid() -> Bool {
         return fromValueTextField.text?.doubleValue != nil || toValueTextField.text?.doubleValue != nil
@@ -325,61 +327,61 @@ class TransactionVC: UIViewController {
 
     }
     
-    func accountsForPicker(_ picker: UIPickerView) -> [Account]? {
-        
-        if picker == fromPicker {
-            
-            if fromSelector.selectedSegmentIndex == 0 { return incomeAccounts }
-            if fromSelector.selectedSegmentIndex == 1 { return activeAccounts }
-
-        }
-        
-        if picker == toPicker {
-            
-            if toSelector.selectedSegmentIndex == 0 { return activeAccounts }
-            if toSelector.selectedSegmentIndex == 1 { return expenseAccounts }
-
-        }
-        
-        return nil
-
-    }
+//    func accountsForPicker(_ picker: UIPickerView) -> [Account]? {
+//
+//        if picker == fromPicker {
+//
+//            if fromSelector.selectedSegmentIndex == 0 { return incomeAccounts }
+//            if fromSelector.selectedSegmentIndex == 1 { return activeAccounts }
+//
+//        }
+//
+//        if picker == toPicker {
+//
+//            if toSelector.selectedSegmentIndex == 0 { return activeAccounts }
+//            if toSelector.selectedSegmentIndex == 1 { return expenseAccounts }
+//
+//        }
+//
+//        return nil
+//
+//    }
 
 }
 
 
 // MARK: - UIPickerViewDataSource, UIPickerViewDelegate
 
-extension TransactionVC: UIPickerViewDataSource, UIPickerViewDelegate {
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return accountsForPicker(pickerView)?.count ?? 0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        let account = accountsForPicker(pickerView)?[row]
-        
-        guard
-            let name = account?.name,
-            let currency = account?.currency else { return nil }
-        
-        return name + " " + currency
-        
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        updateRates()
-        refreshTextFieldsState()
-        
-    }
-
-}
+//extension TransactionVC: UIPickerViewDataSource, UIPickerViewDelegate {
+//
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return accountsForPicker(pickerView)?.count ?? 0
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//
+//        let account = accountsForPicker(pickerView)?[row]
+//
+//        guard
+//            let name = account?.name,
+//            let currency = account?.currency else { return nil }
+//
+//        return name + " " + currency
+//
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//
+//        updateRates()
+//        refreshTextFieldsState()
+//
+//    }
+//
+//}
 
 
 // MARK: - UITextFieldDelegate
@@ -454,7 +456,7 @@ extension TransactionVC: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
         refillAccountsArray()
-        refreshPickersData()
+//        refreshPickersData()
         
     }
 
