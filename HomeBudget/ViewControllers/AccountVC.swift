@@ -153,8 +153,8 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDeleg
 
     
      // MARK: - Navigation
-     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "selectCurrency", let dc = segue.destination as? CurrenciesTVC {
             
