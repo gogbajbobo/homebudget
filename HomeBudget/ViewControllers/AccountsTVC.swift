@@ -10,6 +10,11 @@ import UIKit
 import CoreData
 
 
+class AccountAccessoryButton: UIButton {
+    var account: Account?
+}
+
+
 protocol AccountCreatorDelegate {
 
     func selectedAccountTypeIndex() -> Int
