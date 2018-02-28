@@ -117,8 +117,12 @@ extension SubAccountsTVC: AccountCreatorDelegate {
         
     }
 
-    func createAccount(name: String, currency: String, type: Int) {
+    func createAccount(name: String?, currency: String?, entityName: String?) {
         
+        AccountsService.createAccount(name: name,
+                                      currency: currency,
+                                      accountEntity: entityName)
+
     }
 
 }

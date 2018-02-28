@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreData
+
 
 class AccountsService: NSObject {
 
@@ -29,4 +31,24 @@ class AccountsService: NSObject {
         
     }
     
+    class func createAccount(name: String?, currency: String?, accountEntity: String?) {
+        
+        guard let entityName = accountEntity else { return }
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        context.performAndWait {
+            
+            let account: Account = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Account
+            
+            account.name = name
+            account.currency = currency
+            
+        }
+        
+        appDelegate.saveContext()
+
+    }
+
 }

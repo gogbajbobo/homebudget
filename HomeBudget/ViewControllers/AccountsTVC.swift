@@ -20,7 +20,7 @@ protocol AccountCreatorDelegate {
     func selectedAccountTypeIndex() -> Int
     func accountTypeSelected(_ typeIndex: Int)
     
-    func createAccount(name: String, currency: String, type: Int)
+    func createAccount(name: String?, currency: String?, entityName: String?)
 
 }
 
@@ -41,7 +41,6 @@ class AccountsTVC: FetchedResultsTVC {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     
@@ -50,9 +49,7 @@ class AccountsTVC: FetchedResultsTVC {
     private func fetchData() {
         
         guard let context = context else { return }
-        
-        let typeTitle = accountsTypeSelector.titleForSegment(at: accountsTypeSelector.selectedSegmentIndex) ?? ""
-        let entityName = AccountsService.accountEntityForSelectorName(typeTitle)
+        guard let entityName = selectedTypeName() else { return }
                 
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
@@ -70,6 +67,23 @@ class AccountsTVC: FetchedResultsTVC {
         }
         
         tableView.reloadData()
+
+    }
+    
+    func selectedTypeName() -> String? {
+        return accountNameForSelectorIndex(accountsTypeSelector.selectedSegmentIndex)
+    }
+    
+    func accountNameForSelectorIndex(_ index: Int) -> String? {
+
+        guard index < accountsTypeSelector.numberOfSegments else {
+            return nil
+        }
+        
+        let typeTitle = accountsTypeSelector.titleForSegment(at: index) ?? ""
+        let entityName = AccountsService.accountEntityForSelectorName(typeTitle)
+        
+        return entityName
 
     }
     
@@ -178,8 +192,12 @@ extension AccountsTVC: AccountCreatorDelegate {
         
     }
     
-    func createAccount(name: String, currency: String, type: Int) {
-    
+    func createAccount(name: String?, currency: String?, entityName: String?) {
+        
+        AccountsService.createAccount(name: name,
+                                      currency: currency,
+                                      accountEntity: entityName)
+        
     }
     
 }

@@ -37,20 +37,10 @@ class AccountVC: UIViewController {
         let typeTitle = typeSelector.titleForSegment(at: typeSelector.selectedSegmentIndex) ?? ""
         let entityName = AccountsService.accountEntityForSelectorName(typeTitle)
 
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-
-        context.performAndWait {
-            
-            let account: Account = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Account
-
-            account.name = nameTextField.text
-            account.currency = selectedCurrency
-
-        }
-        
-        appDelegate.saveContext()
-        
+        accountCreator?.createAccount(name: nameTextField.text,
+                                      currency: selectedCurrency,
+                                      entityName: entityName)
+                
         navigationController?.popViewController(animated: true)
         
     }
