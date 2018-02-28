@@ -80,6 +80,10 @@ class AccountsTVC: FetchedResultsTVC {
         tableView.reloadData()
 
     }
+    
+    @objc func accessoryButtonTaped(sender: AccountAccessoryButton) {
+        performSegue(withIdentifier: "showSubAccounts", sender: sender.account)
+    }
 
     
     // MARK: - Actions
@@ -124,6 +128,7 @@ class AccountsTVC: FetchedResultsTVC {
         accessoryButton.account = account
         accessoryButton.setImage(image, for: .normal)
         accessoryButton.imageEdgeInsets.left = width * 0.5
+        accessoryButton.addTarget(self, action: #selector(accessoryButtonTaped), for: .touchUpInside)
         
         cell.accessoryView = accessoryButton
         cell.accessoryView?.tintColor = self.view.tintColor
@@ -153,6 +158,14 @@ class AccountsTVC: FetchedResultsTVC {
         
         if segue.identifier == "addAccount", let dc = segue.destination as? AccountVC {
             dc.accountCreator = self
+        }
+        
+        if segue.identifier == "showSubAccounts",
+            let dc = segue.destination as? SubAccountsTVC,
+            let account = sender as? Account {
+            
+            dc.mainAccount = account
+            
         }
         
     }
