@@ -10,6 +10,14 @@ import UIKit
 import CoreData
 
 
+protocol AccountCreatorDelegate {
+
+    func selectedAccountTypeIndex() -> Int
+    func accountTypeSelected(_ typeIndex: Int)
+
+}
+
+
 class AccountsTVC: FetchedResultsTVC {
 
     @IBOutlet weak var accountsTypeSelector: UISegmentedControl!
@@ -67,6 +75,7 @@ class AccountsTVC: FetchedResultsTVC {
         tableView.reloadData()
 
     }
+
     
     // MARK: - Actions
     
@@ -129,4 +138,20 @@ class AccountsTVC: FetchedResultsTVC {
         
     }
 
+}
+
+
+extension AccountsTVC: AccountCreatorDelegate {
+    
+    func selectedAccountTypeIndex() -> Int {
+        return accountsTypeSelector.selectedSegmentIndex
+    }
+    
+    func accountTypeSelected(_ typeIndex: Int) {
+        
+        accountsTypeSelector.selectedSegmentIndex = typeIndex
+        fetchData()
+        
+    }
+    
 }
