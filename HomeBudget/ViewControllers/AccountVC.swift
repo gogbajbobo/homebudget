@@ -98,6 +98,7 @@ class AccountVC: UIViewController {
         view.addGestureRecognizer(tap)
         
         nameTextField.delegate = self
+        nameTextField.inputAccessoryView = keyboardToolbar
         
         initialValueTextField.delegate = self
         initialValueTextField.inputAccessoryView = keyboardToolbar
