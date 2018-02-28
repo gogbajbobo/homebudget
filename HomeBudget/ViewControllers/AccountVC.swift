@@ -97,11 +97,13 @@ class AccountVC: UIViewController {
         tap.delegate = self // TODO: gesture not work if tap on selector/piker
         view.addGestureRecognizer(tap)
         
-        nameTextField.delegate = self
-        nameTextField.inputAccessoryView = keyboardToolbar
-        
-        initialValueTextField.delegate = self
-        initialValueTextField.inputAccessoryView = keyboardToolbar
+        [nameTextField, initialValueTextField].forEach({
+            
+            $0?.delegate = self
+            $0?.inputAccessoryView = keyboardToolbar
+            $0?.clearButtonMode = UITextFieldViewMode.whileEditing
+            
+        })
         
         saveButton.isEnabled = false
         
