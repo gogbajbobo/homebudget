@@ -20,7 +20,7 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDeleg
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var typeSelector: UISegmentedControl!
     @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var currencyLabel: UILabel!
+    @IBOutlet weak var currencyButton: UIButton!
     @IBOutlet weak var initialValueTextField: UITextField!
     
     @IBOutlet var keyboardToolbar: UIToolbar!
@@ -98,8 +98,8 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDeleg
         initialValueTextField.inputAccessoryView = keyboardToolbar
         
         saveButton.isEnabled = false
-        
-        currencyLabel.text = selectedCurrency
+
+        updateCurrencyButtonTitle()
         
     }
     
@@ -110,6 +110,9 @@ class AccountVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDeleg
         view.endEditing(true)
     }
     
+    func updateCurrencyButtonTitle() {
+        currencyButton.setTitle(selectedCurrency, for: .normal)
+    }
     
     // MARK: - UITextFieldDelegate
     
@@ -169,7 +172,7 @@ extension AccountVC: currencySelectorDelegate {
     func currencySelected(_ currencyName: String) {
         
         selectedCurrency = currencyName
-        currencyLabel.text = selectedCurrency
+        updateCurrencyButtonTitle()
         
     }
     
