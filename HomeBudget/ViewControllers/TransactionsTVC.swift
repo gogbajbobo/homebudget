@@ -104,6 +104,10 @@ class TransactionsTVC: FetchedResultsTVC {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
+        if segue.identifier == "createTransaction", let dc = segue.destination as? TransactionVC {
+            dc.lastTransaction = frc?.fetchedObjects?.first as? Transaction
+        }
+        
     }
 
 }

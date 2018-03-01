@@ -52,7 +52,7 @@
                     <navigationItem key="navigationItem" id="ZWs-vk-1NC">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ncd-Qe-SPh">
                             <connections>
-                                <segue destination="VPw-IT-eVB" kind="show" id="cRc-jP-fOi"/>
+                                <segue destination="VPw-IT-eVB" kind="show" identifier="createTransaction" id="cRc-jP-fOi"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

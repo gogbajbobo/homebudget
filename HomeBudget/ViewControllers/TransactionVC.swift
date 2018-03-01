@@ -39,7 +39,7 @@ class TransactionVC: UIViewController {
         didSet { updateToAccountButton() }
     }
     
-    let lastTransaction: Transaction? = nil
+    var lastTransaction: Transaction?
     
     var fromValueTextField = UITextField(frame: CGRect.zero)
     var toValueTextField = UITextField(frame: CGRect.zero)
@@ -164,6 +164,11 @@ class TransactionVC: UIViewController {
         
         textFieldsContainer.backgroundColor = UIColor.white
 
+        if let lt = lastTransaction {
+            fromAccount = lt.fromAccount
+            toAccount = lt.toAccount
+        }
+        
         setupTextFields()
         
     }
