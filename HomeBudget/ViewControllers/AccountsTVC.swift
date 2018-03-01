@@ -58,7 +58,7 @@ class AccountsTVC: FetchedResultsTVC {
             let index = accountEntitiesNames.index(of: entityName) {
             accountsTypeSelector.selectedSegmentIndex = index
         } else {
-            accountsTypeSelector.selectedSegmentIndex = -1
+            accountsTypeSelector.selectedSegmentIndex = mode == .selecting ? -1 : 0
         }
         
         accountsTypeSelector.isEnabled = mode == .selecting ? false : true
@@ -104,7 +104,7 @@ class AccountsTVC: FetchedResultsTVC {
     
     func accountNameForSelectorIndex(_ index: Int) -> String? {
 
-        guard index < accountsTypeSelector.numberOfSegments else {
+        guard index >= 0 && index < accountsTypeSelector.numberOfSegments else {
             return nil
         }
         
