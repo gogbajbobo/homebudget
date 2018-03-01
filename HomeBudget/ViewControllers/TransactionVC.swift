@@ -39,6 +39,8 @@ class TransactionVC: UIViewController {
         didSet { updateToAccountButton() }
     }
     
+    let lastTransaction: Transaction? = nil
+    
     var fromValueTextField = UITextField(frame: CGRect.zero)
     var toValueTextField = UITextField(frame: CGRect.zero)
     
@@ -425,6 +427,19 @@ extension TransactionVC: AccountSelectorDelegate {
      
         navigationController?.popToViewController(self, animated: true)
         
+    }
+    
+    func selectedAccountTypeName() -> String? {
+        
+        switch selectingAccount {
+        case .from:
+            return AccountsService.accountEntityForSelectorName(fromSelector.titleForSegment(at: fromSelector.selectedSegmentIndex) ?? "")
+        case .to:
+            return AccountsService.accountEntityForSelectorName(toSelector.titleForSegment(at: toSelector.selectedSegmentIndex) ?? "")
+        default:
+            return nil
+        }
+
     }
     
 }

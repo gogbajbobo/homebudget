@@ -22,7 +22,8 @@ class AccountAccessoryButton: UIButton {
 protocol AccountSelectorDelegate {
     
     func selectAccount(_ account: Account)
-    
+    func selectedAccountTypeName() -> String?
+
 }
 
 protocol AccountCreatorDelegate {
@@ -47,6 +48,21 @@ class AccountsTVC: FetchedResultsTVC {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+
+        let accountEntitiesNames = [String(describing: IncomeAccount.self),
+                                    String(describing: ActiveAccount.self),
+                                    String(describing: ExpenseAccount.self)]
+
+        if
+            let entityName = selectorDelegate?.selectedAccountTypeName(),
+            let index = accountEntitiesNames.index(of: entityName) {
+            accountsTypeSelector.selectedSegmentIndex = index
+        } else {
+            accountsTypeSelector.selectedSegmentIndex = -1
+        }
+        
+        accountsTypeSelector.isEnabled = mode == .selecting ? false : true
+
         fetchData()
 
     }
