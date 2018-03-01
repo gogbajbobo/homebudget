@@ -165,8 +165,36 @@ class TransactionVC: UIViewController {
         textFieldsContainer.backgroundColor = UIColor.white
 
         if let lt = lastTransaction {
+            
             fromAccount = lt.fromAccount
             toAccount = lt.toAccount
+
+            if let fromType = AccountsService.typeForAccount(fromAccount) {
+                
+                switch fromType {
+                case .income:
+                    fromSelector.selectedSegmentIndex = 0
+                case .active:
+                    fromSelector.selectedSegmentIndex = 1
+                default:
+                    fromSelector.selectedSegmentIndex = -1
+                }
+                
+            }
+
+            if let toType = AccountsService.typeForAccount(toAccount) {
+                
+                switch toType {
+                case .active:
+                    toSelector.selectedSegmentIndex = 0
+                case .expense:
+                    toSelector.selectedSegmentIndex = 1
+                default:
+                    toSelector.selectedSegmentIndex = -1
+                }
+                
+            }
+
         }
         
         setupTextFields()

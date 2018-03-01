@@ -9,6 +9,14 @@
 import UIKit
 import CoreData
 
+enum AccountType {
+    
+    case income
+    case active
+    case expense
+    
+}
+
 
 class AccountsService: NSObject {
 
@@ -62,6 +70,25 @@ class AccountsService: NSObject {
         
         appDelegate.saveContext()
 
+    }
+    
+    class func typeForAccount(_ account: Account?) -> AccountType? {
+    
+        if let account = account as? SubAccount {
+            return typeForAccount(account.mainAccount)
+        }
+        
+        switch account?.entity.name ?? "" {
+        case String(describing: IncomeAccount.self):
+            return .income
+        case String(describing: ActiveAccount.self):
+            return .active
+        case String(describing: ExpenseAccount.self):
+            return .expense
+        default:
+            return nil
+        }
+        
     }
 
 }
