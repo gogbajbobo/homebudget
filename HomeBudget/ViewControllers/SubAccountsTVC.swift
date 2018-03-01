@@ -13,7 +13,8 @@ import CoreData
 class SubAccountsTVC: FetchedResultsTVC {
     
     var mainAccount: Account?
-    
+    var selectorDelegate: AccountSelectorDelegate?
+
     
     // MARK: - Actions
     
@@ -113,6 +114,9 @@ class SubAccountsTVC: FetchedResultsTVC {
         
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let account = frc?.object(at: indexPath) as? Account { selectorDelegate?.selectAccount(account) }
+    }
 
     // MARK: - Navigation
 

@@ -9,6 +9,15 @@
 import UIKit
 import CoreData
 
+
+enum SelectingAccount {
+    
+    case none
+    case from
+    case to
+    
+}
+
 class TransactionVC: UIViewController {
 
     
@@ -20,26 +29,14 @@ class TransactionVC: UIViewController {
     var incomeAccounts: [IncomeAccount]?
     var activeAccounts: [ActiveAccount]?
     var expenseAccounts: [ExpenseAccount]?
+    
+    var selectingAccount: SelectingAccount = .none
 
     var fromAccount: Account? {
-        get {
-            
-//            if let accounts = self.accountsForPicker(self.fromPicker), accounts.count > 0 {
-//                return accounts[self.fromPicker.selectedRow(inComponent: 0)]
-//            }
-            return nil
-            
-        }
+        didSet { updateFromAccountButton() }
     }
     var toAccount: Account? {
-        get {
-            
-//            if let accounts = self.accountsForPicker(self.toPicker) {
-//                return accounts[self.toPicker.selectedRow(inComponent: 0)]
-//            }
-            return nil
-        
-        }
+        didSet { updateToAccountButton() }
     }
     
     var fromValueTextField = UITextField(frame: CGRect.zero)
@@ -94,11 +91,17 @@ class TransactionVC: UIViewController {
     }
     
     @IBAction func fromAccountButtonPressed(_ sender: Any) {
+        
+        selectingAccount = .from
         performSegue(withIdentifier: "showAccounts", sender: sender)
+        
     }
         
     @IBAction func toAccountButtonPressed(_ sender: Any) {
+        
+        selectingAccount = .to
         performSegue(withIdentifier: "showAccounts", sender: sender)
+        
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
@@ -329,6 +332,30 @@ class TransactionVC: UIViewController {
 
     }
     
+    func updateFromAccountButton() {
+        fromAccountButton.setTitle(fromAccount?.name, for: .normal)
+    }
+    
+    func updateToAccountButton() {
+        toAccountButton.setTitle(toAccount?.name, for: .normal)
+    }
+    
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "showAccounts",
+            let dc = segue.destination as? AccountsTVC {
+            
+            dc.mode = .selecting
+            dc.selectorDelegate = self
+        
+        }
+        
+    }
+
+    
 //    func accountsForPicker(_ picker: UIPickerView) -> [Account]? {
 //
 //        if picker == fromPicker {
@@ -463,3 +490,23 @@ extension TransactionVC: NSFetchedResultsControllerDelegate {
     }
 
 }
+
+extension TransactionVC: AccountSelectorDelegate {
+
+    func selectAccount(_ account: Account) {
+        
+        switch selectingAccount {
+        case .from:
+            fromAccount = account
+        case .to:
+            toAccount = account
+        default:
+            break
+        }
+     
+        navigationController?.popToViewController(self, animated: true)
+        
+    }
+    
+}
+

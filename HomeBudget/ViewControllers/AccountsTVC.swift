@@ -10,10 +10,20 @@ import UIKit
 import CoreData
 
 
+enum AccountsTableMode {
+    case selecting
+    case listing
+}
+
 class AccountAccessoryButton: UIButton {
     var account: Account?
 }
 
+protocol AccountSelectorDelegate {
+    
+    func selectAccount(_ account: Account)
+    
+}
 
 protocol AccountCreatorDelegate {
 
@@ -29,6 +39,8 @@ class AccountsTVC: FetchedResultsTVC {
 
     @IBOutlet weak var accountsTypeSelector: UISegmentedControl!
     
+    var mode: AccountsTableMode = .listing
+    var selectorDelegate: AccountSelectorDelegate?
     
     // MARK: - Lifecycle
     
@@ -138,6 +150,8 @@ class AccountsTVC: FetchedResultsTVC {
         
         cell.accessoryView = accessoryButton
         cell.accessoryView?.tintColor = self.view.tintColor
+        
+        cell.selectionStyle = mode == .listing ? .none : .gray
 
         return cell
         
@@ -157,6 +171,10 @@ class AccountsTVC: FetchedResultsTVC {
         
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let account = frc?.object(at: indexPath) as? Account { selectorDelegate?.selectAccount(account) }
+    }
+    
     
     // MARK: - Navigation
     
@@ -171,6 +189,7 @@ class AccountsTVC: FetchedResultsTVC {
             let account = sender as? Account {
             
             dc.mainAccount = account
+            dc.selectorDelegate = selectorDelegate
             
         }
         
