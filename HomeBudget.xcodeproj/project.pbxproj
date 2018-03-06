@@ -37,6 +37,7 @@
 		2C7AAF4E2046BFF200620926 /* SubAccountsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AAF4D2046BFF200620926 /* SubAccountsTVC.swift */; };
 		2C7AAF502046D30800620926 /* AccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AAF4F2046D30800620926 /* AccountsService.swift */; };
 		2CDD0091204E8307005C68E4 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD0090204E8307005C68E4 /* DataService.swift */; };
+		2CDD0093204EBBBD005C68E4 /* SocketIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD0092204EBBBD005C68E4 /* SocketIO.swift */; };
 		2CE2F94D2039717E00283C11 /* TransactionsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */; };
 		2CE2F94F203971B900283C11 /* FetchedResultsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */; };
 		2CE2F951203972DB00283C11 /* TransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2F950203972DB00283C11 /* TransactionVC.swift */; };
@@ -104,6 +105,7 @@
 		2C7AAF4D2046BFF200620926 /* SubAccountsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubAccountsTVC.swift; sourceTree = "<group>"; };
 		2C7AAF4F2046D30800620926 /* AccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsService.swift; sourceTree = "<group>"; };
 		2CDD0090204E8307005C68E4 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		2CDD0092204EBBBD005C68E4 /* SocketIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIO.swift; sourceTree = "<group>"; };
 		2CE2F94C2039717E00283C11 /* TransactionsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTVC.swift; sourceTree = "<group>"; };
 		2CE2F94E203971B900283C11 /* FetchedResultsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsTVC.swift; sourceTree = "<group>"; };
 		2CE2F950203972DB00283C11 /* TransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionVC.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				2C54B104203720CC00BDD12E /* NetworkService.swift */,
 				2CE2F95B203C23BA00283C11 /* NetworkResponseParser.swift */,
 				2C54B108203723AB00BDD12E /* JSONHandler.swift */,
+				2CDD0092204EBBBD005C68E4 /* SocketIO.swift */,
 				2C54B10D20385B7100BDD12E /* NetworkIndicator.swift */,
 				2CE2F959203C1B5A00283C11 /* CurrencyService.swift */,
 				2C7AAF4F2046D30800620926 /* AccountsService.swift */,
@@ -487,6 +490,7 @@
 				2CDD0091204E8307005C68E4 /* DataService.swift in Sources */,
 				2C54B0E32036D7E900BDD12E /* ExpenseAccount+CoreDataProperties.swift in Sources */,
 				2C7AAF48204140A000620926 /* NSManagedObjectContext+extension.swift in Sources */,
+				2CDD0093204EBBBD005C68E4 /* SocketIO.swift in Sources */,
 				2CE2F95C203C23BA00283C11 /* NetworkResponseParser.swift in Sources */,
 				2C54B0E92036D7E900BDD12E /* IncomeAccount+CoreDataProperties.swift in Sources */,
 				2C54B0E22036D7E900BDD12E /* ExpenseAccount+CoreDataClass.swift in Sources */,
