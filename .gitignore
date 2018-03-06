@@ -2,3 +2,6 @@
 *.xcbkptlist
 
 xcuserdata
+
+Pods/
+Podfile.lock
