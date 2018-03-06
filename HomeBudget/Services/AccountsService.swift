@@ -39,6 +39,21 @@ class AccountsService: NSObject {
         
     }
     
+    class func accountClassForEntityName(_ name: String) -> Account.Type {
+        
+        switch name {
+        case "IncomeAccount":
+            return IncomeAccount.self
+        case "ActiveAccount":
+            return ActiveAccount.self
+        case "ExpenseAccount":
+            return ExpenseAccount.self
+        default:
+            return Account.self
+        }
+        
+    }
+
     class func createAccount(accountEntity: String?, name: String?, currency: String?, mainAccount: Account?) {
         
         guard let entityName = accountEntity else { return }
