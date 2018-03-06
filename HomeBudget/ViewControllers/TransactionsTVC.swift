@@ -11,7 +11,7 @@ import CoreData
 
 class TransactionsTVC: FetchedResultsTVC {
 
-    var tfrc: NSFetchedResultsController<Transaction>?
+    var frc: NSFetchedResultsController<Transaction>?
     var dataSource: DataServiceProtocol?
 
     
@@ -35,11 +35,11 @@ class TransactionsTVC: FetchedResultsTVC {
     
     func fetchData() {
         
-        tfrc = dataSource?.fetchedResultsController(Transaction.self, sortDescriptors: [("date", false)])
-        tfrc?.delegate = self
+        frc = dataSource?.fetchedResultsController(Transaction.self, sortDescriptors: [("date", false)])
+        frc?.delegate = self
 
         do {
-            try tfrc?.performFetch()
+            try frc?.performFetch()
         } catch {
             fatalError("Failed to fetch entities: \(error)")
         }
@@ -53,8 +53,8 @@ class TransactionsTVC: FetchedResultsTVC {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        if let tfrc = tfrc {
-            return tfrc.sections!.count
+        if let frc = frc {
+            return frc.sections!.count
         }
         return 0
         
@@ -62,7 +62,7 @@ class TransactionsTVC: FetchedResultsTVC {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        guard let sections = tfrc?.sections else {
+        guard let sections = frc?.sections else {
             fatalError("No sections in fetchedResultsController")
         }
         let sectionInfo = sections[section]
@@ -74,7 +74,7 @@ class TransactionsTVC: FetchedResultsTVC {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath)
         
-        guard let transaction = tfrc?.object(at: indexPath) else {
+        guard let transaction = frc?.object(at: indexPath) else {
             fatalError("Attempt to configure cell without a managed object")
         }
 
@@ -108,7 +108,7 @@ class TransactionsTVC: FetchedResultsTVC {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            if let transaction = tfrc?.object(at: indexPath) { dataSource?.deleteObject(transaction) }
+            if let transaction = frc?.object(at: indexPath) { dataSource?.deleteObject(transaction) }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
@@ -121,7 +121,7 @@ class TransactionsTVC: FetchedResultsTVC {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "createTransaction", let dc = segue.destination as? TransactionVC {
-            dc.lastTransaction = tfrc?.fetchedObjects?.first
+            dc.lastTransaction = frc?.fetchedObjects?.first
         }
         
     }

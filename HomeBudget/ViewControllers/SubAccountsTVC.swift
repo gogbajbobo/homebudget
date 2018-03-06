@@ -15,7 +15,7 @@ class SubAccountsTVC: FetchedResultsTVC {
     var mainAccount: Account?
     var selectorDelegate: AccountSelectorDelegate?
 
-    var tfrc: NSFetchedResultsController<SubAccount>?
+    var frc: NSFetchedResultsController<SubAccount>?
     var dataSource: DataServiceProtocol?
 
     // MARK: - Actions
@@ -55,11 +55,11 @@ class SubAccountsTVC: FetchedResultsTVC {
         guard let mainAccount = mainAccount else { return }
         
         let predicate = NSPredicate(format: "mainAccount == %@", mainAccount)
-        tfrc = dataSource?.fetchedResultsController(SubAccount.self, sortDescriptors: [("name", true)], predicate: predicate)
-        tfrc?.delegate = self
+        frc = dataSource?.fetchedResultsController(SubAccount.self, sortDescriptors: [("name", true)], predicate: predicate)
+        frc?.delegate = self
         
         do {
-            try tfrc?.performFetch()
+            try frc?.performFetch()
         } catch {
             fatalError("Failed to fetch entities: \(error)")
         }
@@ -73,8 +73,8 @@ class SubAccountsTVC: FetchedResultsTVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        if let tfrc = tfrc {
-            return tfrc.sections!.count
+        if let frc = frc {
+            return frc.sections!.count
         }
         return 0
         
@@ -82,7 +82,7 @@ class SubAccountsTVC: FetchedResultsTVC {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        guard let sections = tfrc?.sections else {
+        guard let sections = frc?.sections else {
             fatalError("No sections in fetchedResultsController")
         }
         let sectionInfo = sections[section]
@@ -94,7 +94,7 @@ class SubAccountsTVC: FetchedResultsTVC {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "subAccountCell", for: indexPath)
         
-        guard let account = tfrc?.object(at: indexPath) else {
+        guard let account = frc?.object(at: indexPath) else {
             fatalError("Attempt to configure cell without a managed object")
         }
         
@@ -123,7 +123,7 @@ class SubAccountsTVC: FetchedResultsTVC {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            if let account = tfrc?.object(at: indexPath) { dataSource?.deleteObject(account) }
+            if let account = frc?.object(at: indexPath) { dataSource?.deleteObject(account) }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
@@ -131,7 +131,7 @@ class SubAccountsTVC: FetchedResultsTVC {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let account = tfrc?.object(at: indexPath) { selectorDelegate?.selectAccount(account) }
+        if let account = frc?.object(at: indexPath) { selectorDelegate?.selectAccount(account) }
     }
 
     // MARK: - Navigation
