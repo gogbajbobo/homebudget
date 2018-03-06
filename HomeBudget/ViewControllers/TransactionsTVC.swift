@@ -108,7 +108,7 @@ class TransactionsTVC: FetchedResultsTVC {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            if let transaction = tfrc?.object(at: indexPath) { context?.delete(transaction) }
+            if let transaction = tfrc?.object(at: indexPath) { dataSource?.deleteObject(transaction) }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }

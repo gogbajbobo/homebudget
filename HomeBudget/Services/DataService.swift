@@ -17,11 +17,18 @@ protocol DataServiceProtocol {
     
     func fetchedResultsController<T: NSFetchRequestResult>(_ entityType: T.Type, sortDescriptors: [(key: String, asc: Bool)], predicate: NSPredicate?) -> NSFetchedResultsController<T>
 
+    func deleteObject(_ objectToDelete: NSManagedObject)
+
 }
 
 
 class DataService {
     
+    let context = { () -> NSManagedObjectContext in
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.persistentContainer.viewContext
+    }
+
 }
 
 extension DataService: DataServiceProtocol {
@@ -34,9 +41,6 @@ extension DataService: DataServiceProtocol {
     
     func fetchedResultsController<T: NSFetchRequestResult>(_ entityType: T.Type, sortDescriptors: [(key: String, asc: Bool)], predicate: NSPredicate?) -> NSFetchedResultsController<T> {
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: entityType.self))
         
         fetchRequest.sortDescriptors = sortDescriptors.map({ (key, asc) -> NSSortDescriptor in
@@ -46,12 +50,16 @@ extension DataService: DataServiceProtocol {
         fetchRequest.predicate = predicate
         
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                             managedObjectContext: context,
+                                             managedObjectContext: context(),
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
         
         return frc
         
+    }
+    
+    func deleteObject(_ objectToDelete: NSManagedObject) {
+        context().delete(objectToDelete)
     }
     
 }

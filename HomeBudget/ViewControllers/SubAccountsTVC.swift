@@ -123,7 +123,7 @@ class SubAccountsTVC: FetchedResultsTVC {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            if let account = tfrc?.object(at: indexPath) { context?.delete(account) }
+            if let account = tfrc?.object(at: indexPath) { dataSource?.deleteObject(account) }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }

@@ -12,16 +12,8 @@ import CoreData
 
 class FetchedResultsTVC: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    var context: NSManagedObjectContext?
-    var frc: NSFetchedResultsController<NSManagedObject>?
-
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        context = appDelegate.persistentContainer.viewContext
-
     }
 
     override func didReceiveMemoryWarning() {
