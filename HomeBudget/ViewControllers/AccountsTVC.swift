@@ -43,6 +43,9 @@ class AccountsTVC: FetchedResultsTVC {
     var mode: AccountsTableMode = .listing
     var selectorDelegate: AccountSelectorDelegate?
     
+    var tfrc: NSFetchedResultsController<Account>?
+    var dataSource: DataServiceProtocol?
+
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -63,6 +66,8 @@ class AccountsTVC: FetchedResultsTVC {
         
         accountsTypeSelector.isEnabled = mode == .selecting ? false : true
 
+        dataSource = dataSource ?? DataService()
+
         fetchData()
 
     }
@@ -76,20 +81,13 @@ class AccountsTVC: FetchedResultsTVC {
     
     private func fetchData() {
         
-        guard let context = context else { return }
         guard let entityName = selectedTypeName() else { return }
-                
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
-        frc = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                         managedObjectContext: context,
-                                         sectionNameKeyPath: nil,
-                                         cacheName: nil)
-        frc?.delegate = self
+        tfrc = dataSource?.fetchedResultsController(AccountsService.accountClassForEntityName(entityName), sortDescriptors: [("name", true)])
+        tfrc?.delegate = self
 
         do {
-            try frc?.performFetch()
+            try tfrc?.performFetch()
         } catch {
             fatalError("Failed to fetch entities: \(error)")
         }
@@ -129,11 +127,30 @@ class AccountsTVC: FetchedResultsTVC {
     
     // MARK: - Table view data source
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if let tfrc = tfrc {
+            return tfrc.sections!.count
+        }
+        return 0
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        guard let sections = tfrc?.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[section]
+        return sectionInfo.numberOfObjects
+        
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
         
-        guard let account = frc?.object(at: indexPath) as? Account else {
+        guard let account = tfrc?.object(at: indexPath) else {
             fatalError("Attempt to configure cell without a managed object")
         }
 
@@ -180,7 +197,7 @@ class AccountsTVC: FetchedResultsTVC {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            if let account = frc?.object(at: indexPath) { context?.delete(account) }
+            if let account = tfrc?.object(at: indexPath) { context?.delete(account) }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
@@ -188,7 +205,7 @@ class AccountsTVC: FetchedResultsTVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let account = frc?.object(at: indexPath) as? Account { selectorDelegate?.selectAccount(account) }
+        if let account = tfrc?.object(at: indexPath) { selectorDelegate?.selectAccount(account) }
     }
     
     

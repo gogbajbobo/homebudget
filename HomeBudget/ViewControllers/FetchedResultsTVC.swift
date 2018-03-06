@@ -29,28 +29,6 @@ class FetchedResultsTVC: UITableViewController, NSFetchedResultsControllerDelega
     }
 
     
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        
-        if let frc = frc {
-            return frc.sections!.count
-        }
-        return 0
-        
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        guard let sections = frc?.sections else {
-            fatalError("No sections in fetchedResultsController")
-        }
-        let sectionInfo = sections[section]
-        return sectionInfo.numberOfObjects
-        
-    }
-
-    
     // MARK: - NSFetchedResultsControllerDelegate
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
