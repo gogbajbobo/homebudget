@@ -11,12 +11,17 @@ import CoreData
 
 class TransactionsTVC: FetchedResultsTVC {
 
+    var tfrc: NSFetchedResultsController<Transaction>?
+    var dataSource: DataServiceProtocol?
+
     
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
 
         super.viewDidLoad()
+        
+        dataSource = dataSource ?? DataService()
         fetchData()
 
     }
@@ -30,23 +35,15 @@ class TransactionsTVC: FetchedResultsTVC {
     
     func fetchData() {
         
-        guard let context = context else { return }
-        
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: String(describing: Transaction.self))
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        
-        frc = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                         managedObjectContext: context,
-                                         sectionNameKeyPath: nil,
-                                         cacheName: nil)
-        frc?.delegate = self
-        
+        tfrc = dataSource?.fetchedResultsController(Transaction.self, sortDescriptors: [("date", false)])
+        tfrc?.delegate = self
+
         do {
-            try frc?.performFetch()
+            try tfrc?.performFetch()
         } catch {
             fatalError("Failed to fetch entities: \(error)")
         }
-        
+
         tableView.reloadData()
 
     }
@@ -54,14 +51,33 @@ class TransactionsTVC: FetchedResultsTVC {
     
     // MARK: - Table view data source
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if let tfrc = tfrc {
+            return tfrc.sections!.count
+        }
+        return 0
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        guard let sections = tfrc?.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[section]
+        return sectionInfo.numberOfObjects
+        
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath)
         
-        guard let transaction = frc?.object(at: indexPath) as? Transaction else {
+        guard let transaction = tfrc?.object(at: indexPath) else {
             fatalError("Attempt to configure cell without a managed object")
         }
-        
+
         guard
             let fromAccount = transaction.fromAccount,
             let toAccount = transaction.toAccount else {
@@ -92,7 +108,7 @@ class TransactionsTVC: FetchedResultsTVC {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            if let transaction = frc?.object(at: indexPath) { context?.delete(transaction) }
+            if let transaction = tfrc?.object(at: indexPath) { context?.delete(transaction) }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
@@ -105,7 +121,7 @@ class TransactionsTVC: FetchedResultsTVC {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "createTransaction", let dc = segue.destination as? TransactionVC {
-            dc.lastTransaction = frc?.fetchedObjects?.first as? Transaction
+            dc.lastTransaction = tfrc?.fetchedObjects?.first
         }
         
     }
